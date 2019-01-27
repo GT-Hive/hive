@@ -10,10 +10,18 @@ import RegVerifyO from './screens/Registration/RegVerifyO';
 import RegInterests from './screens/Registration/RegInterests';
 
 
+
 export default class App extends React.Component {
   render() {
+    
+    const communities = ['Economics', '3D Modelling', 'Japanese', 'Media Studies', 'Art', 'Artificial Intelligence', 'Computer Vision']
+    const selected = ['Economics']
+
     return (
-      <RegInterests />
+      <RegInterests 
+        all={communities}
+        selected={selected}
+        isExclusive={false}/>
     );
   }
 }

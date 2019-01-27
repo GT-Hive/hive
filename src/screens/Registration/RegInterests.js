@@ -1,64 +1,81 @@
-import React from 'react';
-import { Image, StyleSheet, Text, TextInput, View } from 'react-native';
+import React from 'react'
+import { View, StyleSheet, Button } from 'react-native'
+import R from '../../res/R'
+import TagButton from '../../components/TagButton'
+import addOrRemove from '../../utils/addOrRemove'
 
-import { COLORS, STYLES } from '../../Constants';
-import IMAGES from '../../assets';
-import Button from '../../components/Button';
-import { underline } from 'ansi-colors';
-
-const styles = StyleSheet.create({
-    interestsContainer: {
-        flexDirection: 'column',
-        justifyContent: 'flex-start',
-    },
-    joinBtn: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: COLORS.BLACK,
-        minHeight: 40,
-        width: '80%',
-        borderRadius: 10
-    },
-    joinTxt: {
-        ...STYLES.TEXT_SECONDARY,
-        color: COLORS.WHITE
-    },
-    communityContainer: {
-        flexWrap: 'wrap',
-        justifyContent: 'flex-start',
-        alignContent: 'flex-start',
-        flexGrow: 1
-    },
-    communityBtn: {
-        // alignItems: 'center',
-        // justifyContent: 'center',
-        // backgroundColor: COLORS.LIGHT_GRAY,
-        // minHeight: 10,
-        // flexWrap: 'nowrap',
-        // borderRadius: 20
+export default class RegInterests extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      selected: props.selected
     }
-});
+  }
 
-export default class RegName extends React.Component {
-  render() {
+render() {
     return (
-      <View style={[STYLES.CONTAINER_SIDES, styles.interestsContainer]}>
-        <Text style={STYLES.DESC_TEXT_PRIMARY}>Select your interests</Text>
-        <Text style={styles.DESC_TEXT_DESC}>There are communities for many topics {"\n"}You can join more later when you think of them!</Text>
-        
-
-        <View style={styles.communityContainer}>
-            <Button style={styles.communityBtn}>
-                <Text style={styles.joinTxt}>Korean</Text>
-            </Button>
+        <View style={styles.container}>
+            {this.makeButtons()}
         </View>
+    )}
 
-        <View style={ STYLES.CONTAINER_CENTERX }>
-            <Button style={styles.joinBtn}>
-                <Text style={styles.joinTxt}>Join communities!</Text>
-            </Button>
-        </View>
-      </View>
-    );
+    onPress = (tag) => {
+        let selected
+        if (this.props.isExclusive) {
+            selected = [tag]
+        } else {
+            selected = addOrRemove(this.state.selected, tag)
+        }
+
+        this.setState({ selected })
+    }
+
+    makeButtons() {
+        return this.props.all.map((tag, i) => {
+            const on = this.state.selected.includes(tag)
+            const backgroundColor = on ? R.colors.onBgColor : R.colors.offBgColor
+            const textColor = on ? R.colors.onText : R.colors.offText
+            const borderColor = on ? R.colors.onBorder : R.colors.offBorder
+
+            return (
+                <TagButton
+                    backgroundColor={backgroundColor}
+                    textColor={textColor}
+                    borderColor={borderColor}
+                    onPress={() => {
+                        this.onPress(tag)
+                    }}
+                    key={i}
+                    showImage={on}
+                    title={tag} />
+            )
+        })
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    padding: 20
+  },
+
+    descText: {
+        marginTop: 120,
+    },
+  openMailBtn: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: R.colors.BLACK,
+    minHeight: 40,
+    width: '80%',
+    marginTop: 100,
+    marginBottom: 80,
+    borderRadius: 10
+  },
+  openMailTxt: {
+    ...R.styles.TEXT_SECONDARY,
+    color: R.colors.WHITE
+  },
+})

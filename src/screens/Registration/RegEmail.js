@@ -6,6 +6,7 @@ import IMAGES from '../../assets';
 import Button from '../../components/Button';
 import { underline } from 'ansi-colors';
 
+import R from '../../res/R';
 const styles = StyleSheet.create({
   descriptionContainer: {
     margin: 0,
@@ -17,23 +18,23 @@ const styles = StyleSheet.create({
   continueBtn: {
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: COLORS.BLACK,
+    backgroundColor: R.colors.BLACK,
     minHeight: 40,
     width: '80%',
     marginBottom: 30,
     borderRadius: 10
   },
   continueTxt: {
-    ...STYLES.TEXT_SECONDARY,
-    color: COLORS.WHITE
+    ...R.styles.TEXT_SECONDARY,
+    color: R.colors.WHITE
   },
 });
 
 export default class RegName extends React.Component {
   render() {
     return (
-      <View style={[STYLES.CONTAINER_SIDES, STYLES.CONTAINER_REG_FIXED, STYLES.CONTAINER_FLEX_VERT]}>
-        <Text style={STYLES.DESC_TEXT_PRIMARY}>What's your email?</Text>
+      <View style={[R.styles.CONTAINER_SIDES, R.styles.CONTAINER_REG_FIXED, R.styles.CONTAINER_FLEX_VERT]}>
+        <Text style={R.styles.DESC_TEXT_PRIMARY}>What's your email?</Text>
         <Text style={styles.DESC_TEXT_DESC}>This will be used for you to login and for us to contact you just in case!</Text>
 
         <View style={styles.regEmailContainer}>
@@ -47,7 +48,7 @@ export default class RegName extends React.Component {
 
         </View>
 
-        <View style={ STYLES.CONTAINER_CENTERX }>
+        <View style={ R.styles.CONTAINER_CENTERX }>
             <Button style={styles.continueBtn}>
                 <Text style={styles.continueTxt}>Continue</Text>
             </Button>

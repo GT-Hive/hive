@@ -7,9 +7,9 @@ import Button from '../../components/Button';
 import { underline } from 'ansi-colors';
 
 const styles = StyleSheet.create({
-    descText: {
-        marginTop: 120,
-    },
+  descText: {
+    marginTop: 120,
+  },
   openMailBtn: {
     alignItems: 'center',
     justifyContent: 'center',

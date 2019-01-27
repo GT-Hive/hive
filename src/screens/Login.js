@@ -1,8 +1,7 @@
 import React from 'react';
 import { Image, StyleSheet, Text, TextInput, View } from 'react-native';
 
-import { COLORS, STYLES } from '../Constants';
-import IMAGES from '../assets';
+import R from '../res/R';
 import Button from '../components/Button';
 
 const styles = StyleSheet.create({
@@ -13,25 +12,25 @@ const styles = StyleSheet.create({
     padding: 0,
     paddingLeft: 20,
     minHeight: 40,
-    borderColor: COLORS.GRAY,
-    backgroundColor: COLORS.GRAY
+    borderColor: R.colors.GRAY,
+    backgroundColor: R.colors.GRAY
   },
-  forgot: STYLES.TEXT_SECONDARY,
+  forgot: R.styles.TEXT_SECONDARY,
   forgotButton: {
     marginTop: 10
   },
   loginButton: {
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: COLORS.BLACK,
+    backgroundColor: R.colors.BLACK,
     minHeight: 40,
     width: '80%',
     marginTop: 30,
     borderRadius: 10
   },
   login: {
-    ...STYLES.TEXT_SECONDARY,
-    color: COLORS.WHITE
+    ...R.styles.TEXT_SECONDARY,
+    color: R.colors.WHITE
   },
   loginContainer: {
     alignItems: 'center',
@@ -52,8 +51,8 @@ const styles = StyleSheet.create({
     padding: 0,
     paddingLeft: 20,
     minHeight: 40,
-    borderColor: COLORS.GRAY,
-    backgroundColor: COLORS.GRAY,
+    borderColor: R.colors.GRAY,
+    backgroundColor: R.colors.GRAY,
     marginTop: 10
   }
 });
@@ -63,19 +62,19 @@ export default class Login extends React.Component {
     return (
       <View>
         <View style={styles.logoContainer}>
-          <Text style={STYLES.TEXT_PRIMARY}>HIVE</Text>
-          <Image style={styles.logo} source={IMAGES.canvas} />
+          <Text style={R.styles.TEXT_PRIMARY}>HIVE</Text>
+          <Image style={styles.logo} source={R.images.logo} />
         </View>
         <View style={styles.loginContainer}>
           <TextInput
             style={styles.emailInput}
             placeholder='Email ID'
-            placeholderTextColor={COLORS.LIGHT_GRAY}
+            placeholderTextColor={R.colors.LIGHT_GRAY}
           />
           <TextInput
             style={styles.pwdInput}
             placeholder='Password'
-            placeholderTextColor={COLORS.LIGHT_GRAY}
+            placeholderTextColor={R.colors.LIGHT_GRAY}
           />
           <Button style={styles.loginButton}>
             <Text style={styles.login}>Login</Text>

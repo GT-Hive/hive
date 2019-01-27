@@ -1,5 +1,5 @@
 const IMAGES = {
-  canvas: require('./logo.png')
-};
-
-export default IMAGES;
+    canvas: require('../res/images/logo.png')
+  };
+  
+  export default IMAGES;

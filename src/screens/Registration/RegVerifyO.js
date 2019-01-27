@@ -4,6 +4,7 @@ import { Image, StyleSheet, Text, TextInput, View } from 'react-native';
 import { COLORS, STYLES } from '../../Constants';
 import IMAGES from '../../assets';
 import Button from '../../components/Button';
+import R from '../../res/R';
 import { underline } from 'ansi-colors';
 
 const styles = StyleSheet.create({
@@ -32,7 +33,7 @@ const styles = StyleSheet.create({
 export default class RegName extends React.Component {
   render() {
     return (
-      <View style={[STYLES.CONTAINER_SIDES, styles.descText]}>
+      <View style={[R.styles.CONTAINER_SIDES, styles.descText]}>
         <Text style={STYLES.DESC_TEXT_PRIMARY}>Thank you!</Text>
         <Text style={styles.DESC_TEXT_DESC}>Thanks for verifying your email!</Text>
         
