@@ -1,37 +1,17 @@
 export const STYLES = {
   TEXT_PRIMARY: {
-    fontSize: 40,
-    lineHeight: 115,
+    fontSize: 35,
+    lineHeight: 40
   },
   TEXT_SECONDARY: {
-    fontSize: 15,
+    fontSize: 23,
+    lineHeight: 30
+  },
+  TEXT_TERTIARY: {
+    fontSize: 16,
     lineHeight: 20
   },
-  DESC_TEXT_PRIMARY: {
-    fontSize: 20,
-    fontWeight: '500',
-    lineHeight: 50,
-  },
-  DESC_TEXT_SECONDARY: {
-
-  },
-  CONTAINER_SIDES: {
-    marginTop: 20,
-    marginHorizontal: 50,
-  },
-  CONTAINER_CENTERX: {
-    alignItems: 'center'
-  },
-  CONTAINER_REG_FIXED: {
-    minHeight: '95%',
-    maxHeight: '95%',
-  }, 
-  CONTAINER_FLEX_VERT: {
-    flex: 1,
-    justifyContent: 'space-between',
-    flexDirection: 'column',
-  },
-
+  // TODO(roy): PROFILE_IMG should be the style for the users once inside the app
   PROFILE_IMG: {
     height: 60,
     borderRadius: 50,

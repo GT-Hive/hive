@@ -12,6 +12,8 @@ module.exports = {
     'no-useless-concat': 'off',
     'object-curly-newline': 'off',
     'react/jsx-filename-extension': 'off',
+    'react/destructuring-assignment': 'off',
+    'react/no-unescaped-entities': 'off',
     'react/prefer-stateless-function': 'off',
     'react/prop-types': 'off'
   },

@@ -45,7 +45,7 @@ export default class RegName extends React.Component {
       <View style={[STYLES.CONTAINER_SIDES, styles.interestsContainer]}>
         <Text style={STYLES.DESC_TEXT_PRIMARY}>Select your interests</Text>
         <Text style={styles.DESC_TEXT_DESC}>There are communities for many topics {"\n"}You can join more later when you think of them!</Text>
-        
+
 
         <View style={styles.communityContainer}>
             <Button style={styles.communityBtn}>

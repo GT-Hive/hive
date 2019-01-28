@@ -1,12 +1,12 @@
 import React from 'react';
 
 import Login from './screens/Login';
-import RegName from './screens/Registration/RegName';
-import RegEmail from './screens/Registration/RegEmail';
-import RegPass from './screens/Registration/RegPass';
-import RegIntro from './screens/Registration/RegIntro';
-import RegVerifyX from './screens/Registration/RegVerifyX';
-import RegVerifyO from './screens/Registration/RegVerifyO';
+import RegName from './screens/Registration/NameRequest';
+import EmailRequest from './screens/Registration/EmailRequest';
+import PasswordCreate from './screens/Registration/PasswordCreate';
+import RegIntro from './screens/Registration/IntroductionRequest';
+import VerifyRequest from './screens/Registration/VerifyRequest';
+import RegVerifyO from './screens/Registration/VerifyConfirm';
 import RegInterests from './screens/Registration/RegInterests';
 
 
