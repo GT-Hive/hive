@@ -1,4 +1,4 @@
-export const STYLES = {
+const STYLES = {
   TEXT_PRIMARY: {
     fontSize: 35,
     lineHeight: 40
@@ -19,9 +19,4 @@ export const STYLES = {
   }
 };
 
-export const COLORS = {
-  BLACK: '#000000',
-  GRAY: '#EEEEEE',
-  LIGHT_GRAY: '#B2B2B2',
-  WHITE: '#FFFFFF'
-};
+export default STYLES;

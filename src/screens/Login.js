@@ -1,8 +1,7 @@
 import React from 'react';
 import { Image, StyleSheet, Text, TextInput, View } from 'react-native';
 
-import { COLORS, STYLES } from '../Constants';
-import IMAGES from '../assets';
+import { COLORS, images, STYLES } from '../res';
 import Button from '../components/Button';
 
 const styles = StyleSheet.create({
@@ -13,8 +12,8 @@ const styles = StyleSheet.create({
     padding: 0,
     paddingLeft: 20,
     minHeight: 40,
-    borderColor: COLORS.GRAY,
-    backgroundColor: COLORS.GRAY
+    borderColor: COLORS.WHISPER,
+    backgroundColor: COLORS.WHISPER
   },
   forgot: STYLES.TEXT_SECONDARY,
   forgotButton: {
@@ -52,8 +51,8 @@ const styles = StyleSheet.create({
     padding: 0,
     paddingLeft: 20,
     minHeight: 40,
-    borderColor: COLORS.GRAY,
-    backgroundColor: COLORS.GRAY,
+    borderColor: COLORS.WHISPER,
+    backgroundColor: COLORS.WHISPER,
     marginTop: 10
   }
 });
@@ -64,7 +63,7 @@ export default class Login extends React.Component {
       <View>
         <View style={styles.logoContainer}>
           <Text style={STYLES.TEXT_PRIMARY}>HIVE</Text>
-          <Image style={styles.logo} source={IMAGES.canvas} />
+          <Image style={styles.logo} source={images.logo} />
         </View>
         <View style={styles.loginContainer}>
           <TextInput

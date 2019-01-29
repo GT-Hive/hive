@@ -1,10 +1,19 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-import { COLORS, STYLES } from '../../Constants';
 import Button from '../../components/Button';
+import { COLORS, STYLES } from '../../res';
 
 const styles = StyleSheet.create({
+  heading: {
+    ...STYLES.TEXT_PRIMARY,
+    marginBottom: 10,
+    marginTop: 20
+  },
+  introContainer: {
+    marginHorizontal: 30,
+    marginBottom: 50
+  },
   openMail: {
     ...STYLES.TEXT_SECONDARY,
     color: COLORS.WHITE
@@ -17,15 +26,6 @@ const styles = StyleSheet.create({
     marginTop: 60,
     borderRadius: 10,
     backgroundColor: COLORS.BLACK
-  },
-  heading: {
-    ...STYLES.TEXT_PRIMARY,
-    marginBottom: 10,
-    marginTop: 20
-  },
-  introContainer: {
-    marginHorizontal: 30,
-    marginBottom: 50
   },
   outerContainer: {
     height: '100%',

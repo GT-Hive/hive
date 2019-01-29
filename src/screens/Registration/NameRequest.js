@@ -1,8 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
 
-import { COLORS, STYLES } from '../../Constants';
 import Button from '../../components/Button';
+import { COLORS, STYLES } from '../../res';
 
 const styles = StyleSheet.create({
   continue: {
@@ -25,8 +25,8 @@ const styles = StyleSheet.create({
     padding: 0,
     paddingLeft: 20,
     minHeight: 40,
-    borderColor: COLORS.GRAY,
-    backgroundColor: COLORS.GRAY
+    borderColor: COLORS.WHISPER,
+    backgroundColor: COLORS.WHISPER
   },
   heading: {
     ...STYLES.TEXT_PRIMARY,
@@ -44,8 +44,8 @@ const styles = StyleSheet.create({
     padding: 0,
     paddingLeft: 20,
     height: 40,
-    borderColor: COLORS.GRAY,
-    backgroundColor: COLORS.GRAY,
+    borderColor: COLORS.WHISPER,
+    backgroundColor: COLORS.WHISPER,
     marginTop: 10
   },
   outerContainer: {

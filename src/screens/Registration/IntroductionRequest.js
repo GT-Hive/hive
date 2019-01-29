@@ -1,8 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
 
-import { COLORS, STYLES } from '../../Constants';
 import Button from '../../components/Button';
+import { COLORS, STYLES } from '../../res';
 
 const styles = StyleSheet.create({
   circle: {
@@ -43,8 +43,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderWidth: 1,
     textAlignVertical: 'top',
-    borderColor: COLORS.GRAY,
-    backgroundColor: COLORS.GRAY
+    borderColor: COLORS.WHISPER,
+    backgroundColor: COLORS.WHISPER
   },
   outerContainer: {
     height: '100%',
