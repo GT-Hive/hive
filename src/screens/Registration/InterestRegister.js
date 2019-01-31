@@ -2,7 +2,7 @@ import _ from 'lodash';
 import React from 'react';
 import { Image, Text, TouchableOpacity, View, StyleSheet } from 'react-native';
 
-import { COLORS, images } from '../../res';
+import { COLORS, images } from '../../res/Index';
 
 const styles = StyleSheet.create({
   container: {
