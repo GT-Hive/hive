@@ -72,6 +72,7 @@ export default class NameRequest extends React.Component {
             style={styles.firstName}
             placeholder='First Name'
             placeholderTextColor={COLORS.LIGHT_GRAY}
+            autoFocus
           />
           <TextInput
             style={styles.lastName}
@@ -79,7 +80,10 @@ export default class NameRequest extends React.Component {
             placeholderTextColor={COLORS.LIGHT_GRAY}
           />
         </View>
-        <Button style={styles.continueBtn}>
+        <Button
+          style={styles.continueBtn}
+          onPress={() => this.props.navigation.navigate('UserInformation')}
+        >
           <Text style={styles.continue}>Continue</Text>
         </Button>
       </View>

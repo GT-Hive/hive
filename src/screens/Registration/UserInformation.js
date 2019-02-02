@@ -29,6 +29,11 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: COLORS.BLACK
   },
+  emailContainer: {
+    alignItems: 'center',
+    marginHorizontal: 30,
+    marginBottom: 20
+  },
   heading: {
     ...STYLES.TEXT_PRIMARY,
     marginBottom: 10,
@@ -38,11 +43,21 @@ const styles = StyleSheet.create({
     marginHorizontal: 30,
     marginBottom: 50
   },
+  login: STYLES.TEXT_TERTIARY,
   outerContainer: {
     height: '100%',
-    width: '100%'
+    width: '100%',
+    flex: 1
   },
-  pwd: {
+  password: {
+    ...STYLES.TEXT_TERTIARY,
+    marginTop: 10
+  },
+  passwordContainer: {
+    alignItems: 'center',
+    marginHorizontal: 30
+  },
+  textInput: {
     width: '100%',
     borderRadius: 10,
     borderWidth: 1,
@@ -51,46 +66,60 @@ const styles = StyleSheet.create({
     minHeight: 40,
     borderColor: COLORS.WHISPER,
     backgroundColor: COLORS.WHISPER
-  },
-  regPwdContainer: {
-    alignItems: 'center',
-    marginHorizontal: 30
   }
 });
 
-export default class PasswordCreate extends React.Component {
+export default class EmailRequest extends React.Component {
+  // TODO(roy): Replace Description text
   constructor(props) {
     super(props);
     this.state = {
-      heading: 'Create a Password!',
-      subheading: 'Password Requirements:\n' + '8 characters, one number, one special character'
+      description: {
+        login: 'Your email will be used to log in.',
+        password: 'Password Requirements:\n' + '8 characters, one number, one special character'
+      }
     };
   }
 
   render() {
+    const { description } = this.state;
     return (
       <View style={styles.outerContainer}>
         <View style={styles.introContainer}>
-          <Text style={styles.heading}>
-            {this.state.heading}
+          <Text style={styles.heading}>Tell us about you</Text>
+          <Text style={styles.login}>
+            { description.login }
           </Text>
-          <Text style={STYLES.TEXT_TERTIARY}>
-            {this.state.subheading}
+          <Text style={styles.password}>
+            { description.password }
           </Text>
         </View>
-        <View style={styles.regPwdContainer}>
+        <View style={styles.emailContainer}>
           <TextInput
-            style={styles.pwd}
+            style={styles.textInput}
+            placeholder='Email'
+            placeholderTextColor={COLORS.LIGHT_GRAY}
+            autoFocus
+          />
+        </View>
+        <View style={styles.passwordContainer}>
+          <TextInput
+            style={styles.textInput}
             placeholder='Password'
             placeholderTextColor={COLORS.LIGHT_GRAY}
+            secureTextEntry
           />
           <TextInput
             style={styles.confirmPwd}
             placeholder='Confirm Password'
             placeholderTextColor={COLORS.LIGHT_GRAY}
+            secureTextEntry
           />
         </View>
-        <Button style={styles.continueBtn}>
+        <Button
+          style={styles.continueBtn}
+          onPress={() => this.props.navigation.navigate('Introduction')}
+        >
           <Text style={styles.continue}>Continue</Text>
         </Button>
       </View>

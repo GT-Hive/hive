@@ -1,29 +1,38 @@
 import _ from 'lodash';
 import React from 'react';
 import { Image, Text, TouchableOpacity, View, StyleSheet } from 'react-native';
+import { NavigationActions, StackActions } from 'react-navigation';
 
-import { COLORS, images } from '../../res';
+import Button from '../../components/Button';
+import { COLORS, images, STYLES } from '../../res';
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    padding: 20
+  continue: {
+    ...STYLES.TEXT_SECONDARY,
+    color: COLORS.WHITE
+  },
+  continueBtn: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 40,
+    marginHorizontal: 30,
+    marginTop: 60,
+    borderRadius: 10,
+    backgroundColor: COLORS.BLACK
+  },
+  continueBtnContainer: {
+    justifyContent: 'flex-end',
+    marginBottom: 30
   },
   image: {
     marginRight: 8,
     maxHeight: 20
   },
-  text: {
-    textAlign: 'center',
-    fontSize: 18
+  outerContainer: {
+    width: '100%',
+    height: '100%'
   },
-  touchable: {
-    marginHorizontal: 4,
-    marginBottom: 8
-  },
-  view: {
+  tagBtn: {
     height: 46,
     flexDirection: 'row',
     justifyContent: 'center',
@@ -32,6 +41,20 @@ const styles = StyleSheet.create({
     borderRadius: 23,
     borderColor: COLORS.WHISPER,
     borderWidth: 2
+  },
+  tagBtnContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    padding: 20
+  },
+  tagText: {
+    textAlign: 'center',
+    fontSize: 18
+  },
+  touchable: {
+    marginHorizontal: 4,
+    marginBottom: 8
   }
 });
 
@@ -40,8 +63,8 @@ const styles = StyleSheet.create({
 class TagButton extends React.Component {
   render() {
     const { backgroundColor, onPress, color, title } = this.props;
-    const buttonContainerStyle = { ...styles.view, backgroundColor };
-    const textStyle = { ...styles.text, color };
+    const buttonContainerStyle = { ...styles.tagBtn, backgroundColor };
+    const textStyle = { ...styles.tagText, color };
 
     return (
       <TouchableOpacity style={styles.touchable} onPress={onPress}>
@@ -106,9 +129,25 @@ export default class InterestRegister extends React.Component {
   }
 
   render() {
+    // TODO(roy): resetStack should be in an epic controller. Remove once calls to API is handled
+    const resetStack = StackActions.reset({
+      index: 0,
+      actions: [NavigationActions.navigate({ routeName: 'Login' })],
+    });
+
     return (
-      <View style={styles.container}>
-        {this._makeButtons()}
+      <View style={styles.outerContainer}>
+        <View style={styles.tagBtnContainer}>
+          {this._makeButtons()}
+        </View>
+        <View style={styles.continueBtnContainer}>
+          <Button
+            style={styles.continueBtn}
+            onPress={() => this.props.navigation.dispatch(resetStack)}
+          >
+            <Text style={styles.continue}>Continue</Text>
+          </Button>
+        </View>
       </View>
     );
   }

@@ -41,7 +41,10 @@ export default class VerifyConfirm extends React.Component {
           <Text style={styles.heading}>Thank you!</Text>
           <Text style={STYLES.TEXT_TERTIARY}>Thanks for verifying your email!</Text>
         </View>
-        <Button style={styles.completeBtn}>
+        <Button
+          style={styles.completeBtn}
+          onPress={() => this.props.navigation.navigate('Interest')}
+        >
           <Text style={styles.complete}>Complete Registration</Text>
         </Button>
       </View>

@@ -1,11 +1,11 @@
 import React from 'react';
 
-import InterestRegister from './screens/Registration/InterestRegister';
+import AppWithNavigationState from './AppNavigator';
 
 export default class App extends React.Component {
   render() {
     return (
-      <InterestRegister />
+      <AppWithNavigationState />
     );
   }
 }

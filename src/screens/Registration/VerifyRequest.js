@@ -41,7 +41,10 @@ export default class VerifyRequest extends React.Component {
           <Text style={styles.heading}>Verify your email</Text>
           <Text style={STYLES.TEXT_TERTIARY}>Please verify your email before continuing.</Text>
         </View>
-        <Button style={styles.openMailBtn}>
+        <Button
+          style={styles.openMailBtn}
+          onPress={() => this.props.navigation.navigate('VerifyConfirm')}
+        >
           <Text style={styles.openMail}>Open Mail App</Text>
         </Button>
       </View>

@@ -5,6 +5,7 @@ module.exports = {
     'jest': true
   },
   'rules': {
+    'arrow-body-style': 'off',
     'comma-dangle': 'off',
     'global-require': 'off',
     'jsx-quotes': 'off',

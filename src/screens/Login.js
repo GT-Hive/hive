@@ -15,9 +15,13 @@ const styles = StyleSheet.create({
     borderColor: COLORS.WHISPER,
     backgroundColor: COLORS.WHISPER
   },
-  forgot: STYLES.TEXT_SECONDARY,
-  forgotButton: {
+  forgot: STYLES.TEXT_QUATERNARY,
+  forgotBtn: {
     marginTop: 10
+  },
+  forgotRegisterContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center'
   },
   loginButton: {
     alignItems: 'center',
@@ -54,6 +58,10 @@ const styles = StyleSheet.create({
     borderColor: COLORS.WHISPER,
     backgroundColor: COLORS.WHISPER,
     marginTop: 10
+  },
+  registerBtn: {
+    marginTop: 10,
+    marginLeft: 10
   }
 });
 
@@ -75,12 +83,21 @@ export default class Login extends React.Component {
             style={styles.pwdInput}
             placeholder='Password'
             placeholderTextColor={COLORS.LIGHT_GRAY}
+            secureTextEntry
           />
           <Button style={styles.loginButton}>
             <Text style={styles.login}>Login</Text>
           </Button>
-          <Button style={styles.forgotButton}>
+        </View>
+        <View style={styles.forgotRegisterContainer}>
+          <Button style={styles.forgotBtn}>
             <Text style={styles.forgot}>Forgot Password?</Text>
+          </Button>
+          <Button
+            style={styles.registerBtn}
+            onPress={() => this.props.navigation.navigate('Name')}
+          >
+            <Text style={styles.forgot}>Register Here</Text>
           </Button>
         </View>
       </View>

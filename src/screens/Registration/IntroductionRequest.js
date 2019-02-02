@@ -83,7 +83,10 @@ export default class IntroductionRequest extends React.Component {
             multiline
           />
         </View>
-        <Button style={styles.continueBtn}>
+        <Button
+          style={styles.continueBtn}
+          onPress={() => this.props.navigation.navigate('VerifyRequest')}
+        >
           <Text style={styles.continue}>Continue</Text>
         </Button>
       </View>

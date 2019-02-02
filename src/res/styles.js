@@ -11,6 +11,10 @@ const STYLES = {
     fontSize: 16,
     lineHeight: 20
   },
+  TEXT_QUATERNARY: {
+    fontSize: 12,
+    lineHeight: 15
+  },
   // TODO(roy): PROFILE_IMG should be the style for the users once inside the app
   PROFILE_IMG: {
     height: 60,
