@@ -9,6 +9,9 @@ import NameRequest from './screens/Registration/NameRequest';
 import VerifyConfirm from './screens/Registration/VerifyConfirm';
 import VerifyRequest from './screens/Registration/VerifyRequest';
 
+import ForgotConfirm from './screens/ForgotConfirm';
+import ForgotRequest from './screens/ForgotRequest';
+
 const AuthStack = createStackNavigator({
   Login: {
     screen: Login
@@ -30,7 +33,13 @@ const AuthStack = createStackNavigator({
   },
   Interest: {
     screen: InterestRegister
-  }
+  },
+  ForgotRequest: {
+    screen: ForgotRequest
+  },
+  ForgotConfirm: {
+    screen: ForgotConfirm
+  },
 }, {
   initialRouteName: 'Login',
   headerMode: 'none'
