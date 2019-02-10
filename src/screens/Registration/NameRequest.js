@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
 
+import hasFieldsFilled from '../../common/Validation';
 import Button from '../../components/Button';
 import { COLORS, STYLES } from '../../res';
 
@@ -59,6 +60,14 @@ const styles = StyleSheet.create({
 });
 
 export default class NameRequest extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      firstName: '',
+      lastName: ''
+    };
+  }
+
   // TODO(roy): Replace Description text
   render() {
     return (
@@ -70,17 +79,20 @@ export default class NameRequest extends React.Component {
         <View style={styles.regNameContainer}>
           <TextInput
             style={styles.firstName}
+            onChangeText={firstName => this.setState({ firstName })}
             placeholder='First Name'
             placeholderTextColor={COLORS.LIGHT_GRAY}
             autoFocus
           />
           <TextInput
             style={styles.lastName}
+            onChangeText={lastName => this.setState({ lastName })}
             placeholder='Last Name'
             placeholderTextColor={COLORS.LIGHT_GRAY}
           />
         </View>
         <Button
+          disabled={!hasFieldsFilled([this.state.firstName, this.state.lastName])}
           style={styles.continueBtn}
           onPress={() => this.props.navigation.navigate('UserInformation')}
         >

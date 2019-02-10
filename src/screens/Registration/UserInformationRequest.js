@@ -1,11 +1,13 @@
 import React from 'react';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
+import Toast, { DURATION } from 'react-native-easy-toast';
 
+import hasFieldsFilled from '../../common/Validation';
 import Button from '../../components/Button';
 import { COLORS, STYLES } from '../../res';
 
 const styles = StyleSheet.create({
-  confirmPwd: {
+  confirmPassword: {
     width: '100%',
     borderRadius: 10,
     borderWidth: 1,
@@ -69,17 +71,71 @@ const styles = StyleSheet.create({
   }
 });
 
-export default class EmailRequest extends React.Component {
-  // TODO(roy): Replace Description text
+const toastStyle = {
+  style: {
+    backgroundColor: COLORS.DARK_PINK,
+    borderRadius: 8,
+    paddingHorizontal: 10
+  },
+  textStyle: {
+    fontSize: 10,
+    color: COLORS.WHITE,
+    fontWeight: 'bold'
+  },
+  opacity: 0.7,
+  positionValue: 425
+};
+
+export default class UserInformationRequest extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       description: {
-        login: 'Your email will be used to log in.',
+        login: 'Your Georgia Tech Email will be used to log in.',
         password: 'Password Requirements:\n' + '8 characters, one number, one special character'
-      }
+      },
+      email: '',
+      password: '',
+      confirmPassword: ''
     };
   }
+
+  _renderPasswordText = () => {
+    if (this.state.password === '' || this._isStrongPassword(this.state.password)) {
+      return styles.password;
+    }
+    return {
+      ...styles.password,
+      color: COLORS.DARK_PINK,
+      fontWeight: 'bold'
+    };
+  }
+
+  _isStrongPassword = () => {
+    const { password } = this.state;
+    const specialCharEx = /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/;
+    const numberEx = /\d/;
+    return specialCharEx.test(password) && numberEx.test(password) && password.length >= 8;
+  }
+
+  _isValidEmail = () => {
+    const emailEx = new RegExp(["^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]",
+      '{0,61}[a-zA-Z0-9])?(?:.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$'].join(''));
+    return emailEx.test(this.state.email) && this.state.email.includes('@gatech.edu');
+  }
+
+  _validateFieldsAndContinue = () => {
+    if (!this._isValidEmail()) {
+      this.toast.show('Email is not Valid Georgia Tech Email!', DURATION.LENGTH_LONG);
+      return;
+    }
+    if (this.state.password !== this.state.confirmPassword) {
+      this.toast.show('Password Does Not Match!', DURATION.LENGTH_LONG);
+      return;
+    }
+
+    this.props.navigation.navigate('VerifyRequest');
+  };
 
   render() {
     const { description } = this.state;
@@ -90,14 +146,15 @@ export default class EmailRequest extends React.Component {
           <Text style={styles.login}>
             { description.login }
           </Text>
-          <Text style={styles.password}>
+          <Text style={this._renderPasswordText()}>
             { description.password }
           </Text>
         </View>
         <View style={styles.emailContainer}>
           <TextInput
             style={styles.textInput}
-            placeholder='Email'
+            onChangeText={email => this.setState({ email })}
+            placeholder='Georgia Tech Email'
             placeholderTextColor={COLORS.LIGHT_GRAY}
             autoFocus
           />
@@ -105,23 +162,33 @@ export default class EmailRequest extends React.Component {
         <View style={styles.passwordContainer}>
           <TextInput
             style={styles.textInput}
+            onChangeText={password => this.setState({ password })}
             placeholder='Password'
             placeholderTextColor={COLORS.LIGHT_GRAY}
             secureTextEntry
           />
           <TextInput
-            style={styles.confirmPwd}
+            style={styles.confirmPassword}
+            onChangeText={confirmPassword => this.setState({ confirmPassword })}
             placeholder='Confirm Password'
             placeholderTextColor={COLORS.LIGHT_GRAY}
             secureTextEntry
           />
         </View>
         <Button
+          disabled={
+            !hasFieldsFilled([this.state.email, this.state.password])
+            || !this._isStrongPassword()
+          }
           style={styles.continueBtn}
-          onPress={() => this.props.navigation.navigate('Introduction')}
+          onPress={this._validateFieldsAndContinue}
         >
           <Text style={styles.continue}>Continue</Text>
         </Button>
+        <Toast
+          {...toastStyle}
+          ref={(ref) => { this.toast = ref; }}
+        />
       </View>
     );
   }
