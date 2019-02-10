@@ -1,8 +1,8 @@
 import React from 'react';
 import { Image, StyleSheet, Text, TextInput, View } from 'react-native';
 
-import { COLORS, images, STYLES } from '../res';
 import Button from '../components/Button';
+import { COLORS, images, STYLES } from '../res';
 
 const styles = StyleSheet.create({
   emailInput: {

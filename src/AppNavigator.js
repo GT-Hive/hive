@@ -2,10 +2,10 @@ import React from 'react';
 import { createAppContainer, createStackNavigator } from 'react-navigation';
 
 import Login from './screens/Login';
-import UserInformation from './screens/Registration/UserInformation';
 import InterestRegister from './screens/Registration/InterestRegister';
 import IntroductionRequest from './screens/Registration/IntroductionRequest';
 import NameRequest from './screens/Registration/NameRequest';
+import UserInformationRequest from './screens/Registration/UserInformationRequest';
 import VerifyConfirm from './screens/Registration/VerifyConfirm';
 import VerifyRequest from './screens/Registration/VerifyRequest';
 
@@ -17,7 +17,7 @@ const AuthStack = createStackNavigator({
     screen: NameRequest
   },
   UserInformation: {
-    screen: UserInformation
+    screen: UserInformationRequest
   },
   Introduction: {
     screen: IntroductionRequest
