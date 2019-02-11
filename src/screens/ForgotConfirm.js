@@ -1,7 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { NavigationActions, StackActions } from 'react-navigation';
 
-import Button from '../components/Button'
+import Button from '../components/Button';
 import { COLORS, STYLES } from '../res';
 
 const styles = StyleSheet.create({
@@ -34,7 +35,13 @@ const styles = StyleSheet.create({
 });
 
 export default class ForgotConfirm extends React.Component {
+  // TODO(roy): resetStack should be in an epic controller. Remove once calls to API is handled
   render() {
+    const resetStack = StackActions.reset({
+      index: 0,
+      actions: [NavigationActions.navigate({ routeName: 'Login' })],
+    });
+
     return (
       <View style={styles.outerContainer}>
         <View style={styles.introContainer}>
@@ -43,9 +50,9 @@ export default class ForgotConfirm extends React.Component {
         </View>
         <Button
           style={styles.completeBtn}
-          onPress={() => this.props.navigation.navigate('Login')}
+          onPress={() => this.props.navigation.dispatch(resetStack)}
         >
-          <Text style={styles.complete}>Open Mail App</Text>
+          <Text style={styles.complete}>Return to Login</Text>
         </Button>
       </View>
     );

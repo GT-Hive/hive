@@ -134,7 +134,7 @@ export default class UserInformationRequest extends React.Component {
       return;
     }
 
-    this.props.navigation.navigate('VerifyRequest');
+    this.props.navigation.navigate('Introduction');
   };
 
   render() {

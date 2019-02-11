@@ -90,14 +90,16 @@ export default class Login extends React.Component {
           </Button>
         </View>
         <View style={styles.forgotRegisterContainer}>
-          <Button 
-          style={styles.forgotBtn}
-          onPress={() => this.props.navigation.navigate('ForgotRequest')}>
+          <Button
+            style={styles.forgotBtn}
+            onPress={() => this.props.navigation.navigate('ForgotRequest')}
+          >
             <Text style={styles.forgot}>Forgot Password?</Text>
           </Button>
           <Button
             style={styles.registerBtn}
-            onPress={() => this.props.navigation.navigate('Name')}  >
+            onPress={() => this.props.navigation.navigate('Name')}
+          >
             <Text style={styles.forgot}>Register Here</Text>
           </Button>
         </View>

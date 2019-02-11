@@ -1,5 +1,6 @@
 const COLORS = {
   BLACK: '#000000',
+  BUZZ_GOLD: '#EAAA00',
   DARK_PINK: '#F06969',
   DARK_WHITE: '#eaeaea',
   DIM_GRAY: '#686868',

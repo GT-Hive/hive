@@ -1,17 +1,33 @@
 import _ from 'lodash';
 import React from 'react';
-import { Image, Text, TouchableOpacity, View, StyleSheet } from 'react-native';
-import { NavigationActions, StackActions } from 'react-navigation';
+import { Text, TouchableOpacity, View, StyleSheet } from 'react-native';
 
 import Button from '../../components/Button';
-import { COLORS, images, STYLES } from '../../res';
+import { COLORS, STYLES } from '../../res';
 
 const styles = StyleSheet.create({
-  continue: {
+  heading: {
+    ...STYLES.TEXT_PRIMARY,
+    marginBottom: 10,
+    marginTop: 20
+  },
+  image: {
+    marginRight: 8,
+    maxHeight: 20
+  },
+  introContainer: {
+    marginHorizontal: 30,
+    marginBottom: 50
+  },
+  outerContainer: {
+    width: '100%',
+    height: '100%'
+  },
+  register: {
     ...STYLES.TEXT_SECONDARY,
     color: COLORS.WHITE
   },
-  continueBtn: {
+  registerBtn: {
     alignItems: 'center',
     justifyContent: 'center',
     height: 40,
@@ -20,17 +36,9 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: COLORS.BLACK
   },
-  continueBtnContainer: {
+  registerBtnContainer: {
     justifyContent: 'flex-end',
     marginBottom: 30
-  },
-  image: {
-    marginRight: 8,
-    maxHeight: 20
-  },
-  outerContainer: {
-    width: '100%',
-    height: '100%'
   },
   tagBtn: {
     height: 46,
@@ -46,7 +54,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     flexWrap: 'wrap',
-    padding: 20
+    marginHorizontal: 20
   },
   tagText: {
     textAlign: 'center',
@@ -69,11 +77,6 @@ class TagButton extends React.Component {
     return (
       <TouchableOpacity style={styles.touchable} onPress={onPress}>
         <View style={buttonContainerStyle}>
-          {
-            this.props.showImage
-              ? <Image style={styles.image} source={images.check} />
-              : null
-          }
           <Text style={textStyle}>{title}</Text>
         </View>
       </TouchableOpacity>
@@ -88,7 +91,9 @@ export default class InterestRegister extends React.Component {
     this.state = {
       selected: [],
       communities: ['Economics', '3D Modelling', 'Japanese', 'Media Studies',
-        'Art', 'Artificial Intelligence', 'Computer Vision']
+        'Art', 'Artificial Intelligence', 'Computer Vision'],
+      description: 'There are many communities for many topics.\n'
+        + 'You can join more later as you find them!'
     };
   }
 
@@ -109,13 +114,11 @@ export default class InterestRegister extends React.Component {
     const tagButtonColor = { borderColor: COLORS.WHITE };
     return this.state.communities.map((community) => {
       if (this.state.selected.includes(community)) {
-        tagButtonColor.backgroundColor = COLORS.WHISPER;
-        tagButtonColor.color = COLORS.BLACK;
-        tagButtonColor.showImage = true;
+        tagButtonColor.backgroundColor = COLORS.BUZZ_GOLD;
+        tagButtonColor.color = COLORS.WHITE;
       } else {
         tagButtonColor.backgroundColor = COLORS.NEAR_WHITE;
         tagButtonColor.color = COLORS.DIM_GRAY;
-        tagButtonColor.showImage = false;
       }
       return (
         <TagButton
@@ -129,23 +132,23 @@ export default class InterestRegister extends React.Component {
   }
 
   render() {
-    // TODO(roy): resetStack should be in an epic controller. Remove once calls to API is handled
-    const resetStack = StackActions.reset({
-      index: 0,
-      actions: [NavigationActions.navigate({ routeName: 'Login' })],
-    });
-
     return (
       <View style={styles.outerContainer}>
+        <View style={styles.introContainer}>
+          <Text style={styles.heading}>Select your interests</Text>
+          <Text style={STYLES.TEXT_TERTIARY}>
+            {this.state.description}
+          </Text>
+        </View>
         <View style={styles.tagBtnContainer}>
           {this._makeButtons()}
         </View>
-        <View style={styles.continueBtnContainer}>
+        <View style={styles.registerBtnContainer}>
           <Button
-            style={styles.continueBtn}
-            onPress={() => this.props.navigation.dispatch(resetStack)}
+            style={styles.registerBtn}
+            onPress={() => this.props.navigation.navigate('RegisterConfirm')}
           >
-            <Text style={styles.continue}>Continue</Text>
+            <Text style={styles.register}>Register</Text>
           </Button>
         </View>
       </View>

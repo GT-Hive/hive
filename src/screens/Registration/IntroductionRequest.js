@@ -85,7 +85,7 @@ export default class IntroductionRequest extends React.Component {
         </View>
         <Button
           style={styles.continueBtn}
-          onPress={() => this.props.navigation.navigate('VerifyRequest')}
+          onPress={() => this.props.navigation.navigate('Interest')}
         >
           <Text style={styles.continue}>Continue</Text>
         </Button>

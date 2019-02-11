@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { NavigationActions, StackActions } from 'react-navigation';
 
 import Button from '../../components/Button';
 import { COLORS, STYLES } from '../../res';
@@ -33,19 +34,25 @@ const styles = StyleSheet.create({
   }
 });
 
-export default class VerifyRequest extends React.Component {
+export default class RegisterConfirm extends React.Component {
+  // TODO(roy): resetStack should be in an epic controller. Remove once calls to API is handled
   render() {
+    const resetStack = StackActions.reset({
+      index: 0,
+      actions: [NavigationActions.navigate({ routeName: 'Login' })],
+    });
+
     return (
       <View style={styles.outerContainer}>
         <View style={styles.introContainer}>
-          <Text style={styles.heading}>Verify your email</Text>
-          <Text style={STYLES.TEXT_TERTIARY}>Please verify your email before continuing.</Text>
+          <Text style={styles.heading}>Thank you. Your account has been created!</Text>
+          <Text style={STYLES.TEXT_TERTIARY}>Please verify your email.</Text>
         </View>
         <Button
           style={styles.openMailBtn}
-          onPress={() => this.props.navigation.navigate('VerifyConfirm')}
+          onPress={() => this.props.navigation.dispatch(resetStack)}
         >
-          <Text style={styles.openMail}>Open Mail App</Text>
+          <Text style={styles.openMail}>Start Hive</Text>
         </Button>
       </View>
     );

@@ -5,9 +5,8 @@ import Login from './screens/Login';
 import InterestRegister from './screens/Registration/InterestRegister';
 import IntroductionRequest from './screens/Registration/IntroductionRequest';
 import NameRequest from './screens/Registration/NameRequest';
+import RegisterConfirm from './screens/Registration/RegisterConfirm';
 import UserInformationRequest from './screens/Registration/UserInformationRequest';
-import VerifyConfirm from './screens/Registration/VerifyConfirm';
-import VerifyRequest from './screens/Registration/VerifyRequest';
 
 import ForgotConfirm from './screens/ForgotConfirm';
 import ForgotRequest from './screens/ForgotRequest';
@@ -25,14 +24,11 @@ const AuthStack = createStackNavigator({
   Introduction: {
     screen: IntroductionRequest
   },
-  VerifyRequest: {
-    screen: VerifyRequest
-  },
-  VerifyConfirm: {
-    screen: VerifyConfirm
-  },
   Interest: {
     screen: InterestRegister
+  },
+  RegisterConfirm: {
+    screen: RegisterConfirm
   },
   ForgotRequest: {
     screen: ForgotRequest
