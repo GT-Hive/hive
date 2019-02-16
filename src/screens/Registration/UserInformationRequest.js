@@ -1,9 +1,11 @@
 import React from 'react';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
 import Toast, { DURATION } from 'react-native-easy-toast';
+import { connect } from 'react-redux';
 
 import hasFieldsFilled from '../../common/Validation';
 import Button from '../../components/Button';
+import { actionCreators } from '../../models/actions/user';
 import { COLORS, STYLES } from '../../res';
 
 const styles = StyleSheet.create({
@@ -86,7 +88,7 @@ const toastStyle = {
   positionValue: 425
 };
 
-export default class UserInformationRequest extends React.Component {
+class UserInformationRequest extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -125,6 +127,9 @@ export default class UserInformationRequest extends React.Component {
   }
 
   _validateFieldsAndContinue = () => {
+    const { email, password } = this.state;
+    const { navigation, registerInformation } = this.props;
+
     if (!this._isValidEmail()) {
       this.toast.show('Email is not Valid Georgia Tech Email!', DURATION.LENGTH_LONG);
       return;
@@ -133,8 +138,8 @@ export default class UserInformationRequest extends React.Component {
       this.toast.show('Password Does Not Match!', DURATION.LENGTH_LONG);
       return;
     }
-
-    this.props.navigation.navigate('Introduction');
+    registerInformation(email, password);
+    navigation.navigate('Introduction');
   };
 
   render() {
@@ -193,3 +198,9 @@ export default class UserInformationRequest extends React.Component {
     );
   }
 }
+
+const mapDispatchToProps = {
+  registerInformation: actionCreators.registerInformation
+};
+
+export default connect(null, mapDispatchToProps)(UserInformationRequest);

@@ -1,7 +1,9 @@
 import React from 'react';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
+import { connect } from 'react-redux';
 
 import Button from '../../components/Button';
+import { actionCreators } from '../../models/actions/user';
 import { COLORS, STYLES } from '../../res';
 
 const styles = StyleSheet.create({
@@ -61,9 +63,18 @@ const styles = StyleSheet.create({
   }
 });
 
-export default class IntroductionRequest extends React.Component {
+class IntroductionRequest extends React.Component {
   // TODO(roy): Add photo icon at edge of profile
+  constructor(props) {
+    super(props);
+    this.state = {
+      intro: ''
+    };
+  }
+
   render() {
+    const { navigation, registerIntroduction } = this.props;
+
     return (
       <View style={styles.outerContainer}>
         <View style={styles.introContainer}>
@@ -80,12 +91,16 @@ export default class IntroductionRequest extends React.Component {
             style={styles.introduction}
             placeholder='Introduce yourself here!'
             placeholderTextColor={COLORS.LIGHT_GRAY}
+            onChangeText={intro => this.setState({ intro })}
             multiline
           />
         </View>
         <Button
           style={styles.continueBtn}
-          onPress={() => this.props.navigation.navigate('Interest')}
+          onPress={() => {
+            registerIntroduction(this.state.intro);
+            navigation.navigate('Interest');
+          }}
         >
           <Text style={styles.continue}>Continue</Text>
         </Button>
@@ -93,3 +108,9 @@ export default class IntroductionRequest extends React.Component {
     );
   }
 }
+
+const mapDispatchToProps = {
+  registerIntroduction: actionCreators.registerIntroduction
+};
+
+export default connect(null, mapDispatchToProps)(IntroductionRequest);

@@ -1,8 +1,10 @@
 import React from 'react';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
+import { connect } from 'react-redux';
 
 import hasFieldsFilled from '../../common/Validation';
 import Button from '../../components/Button';
+import { actionCreators } from '../../models/actions/user';
 import { COLORS, STYLES } from '../../res';
 
 const styles = StyleSheet.create({
@@ -59,7 +61,7 @@ const styles = StyleSheet.create({
   }
 });
 
-export default class NameRequest extends React.Component {
+class NameRequest extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -70,6 +72,9 @@ export default class NameRequest extends React.Component {
 
   // TODO(roy): Replace Description text
   render() {
+    const { firstName, lastName } = this.state;
+    const { registerName, navigation } = this.props;
+
     return (
       <View style={styles.outerContainer}>
         <View style={styles.introContainer}>
@@ -79,22 +84,25 @@ export default class NameRequest extends React.Component {
         <View style={styles.regNameContainer}>
           <TextInput
             style={styles.firstName}
-            onChangeText={firstName => this.setState({ firstName })}
+            onChangeText={name => this.setState({ firstName: name })}
             placeholder='First Name'
             placeholderTextColor={COLORS.LIGHT_GRAY}
             autoFocus
           />
           <TextInput
             style={styles.lastName}
-            onChangeText={lastName => this.setState({ lastName })}
+            onChangeText={name => this.setState({ lastName: name })}
             placeholder='Last Name'
             placeholderTextColor={COLORS.LIGHT_GRAY}
           />
         </View>
         <Button
-          disabled={!hasFieldsFilled([this.state.firstName, this.state.lastName])}
+          disabled={!hasFieldsFilled([firstName, lastName])}
           style={styles.continueBtn}
-          onPress={() => this.props.navigation.navigate('UserInformation')}
+          onPress={() => {
+            registerName(firstName, lastName);
+            navigation.navigate('UserInformation');
+          }}
         >
           <Text style={styles.continue}>Continue</Text>
         </Button>
@@ -102,3 +110,9 @@ export default class NameRequest extends React.Component {
     );
   }
 }
+
+const mapDispatchToProps = {
+  registerName: actionCreators.registerName
+};
+
+export default connect(null, mapDispatchToProps)(NameRequest);

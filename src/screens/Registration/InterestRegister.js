@@ -1,8 +1,10 @@
 import _ from 'lodash';
 import React from 'react';
 import { Text, TouchableOpacity, View, StyleSheet } from 'react-native';
+import { connect } from 'react-redux';
 
 import Button from '../../components/Button';
+import { actionCreators } from '../../models/actions/user';
 import { COLORS, STYLES } from '../../res';
 
 const styles = StyleSheet.create({
@@ -84,7 +86,7 @@ class TagButton extends React.Component {
   }
 }
 
-export default class InterestRegister extends React.Component {
+class InterestRegister extends React.Component {
   // TODO(roy): Remove dummy state values later
   constructor(props) {
     super(props);
@@ -132,6 +134,8 @@ export default class InterestRegister extends React.Component {
   }
 
   render() {
+    const { navigation, registerInterests } = this.props;
+
     return (
       <View style={styles.outerContainer}>
         <View style={styles.introContainer}>
@@ -146,7 +150,10 @@ export default class InterestRegister extends React.Component {
         <View style={styles.registerBtnContainer}>
           <Button
             style={styles.registerBtn}
-            onPress={() => this.props.navigation.navigate('RegisterConfirm')}
+            onPress={() => {
+              registerInterests(this.state.selected);
+              navigation.navigate('RegisterConfirm');
+            }}
           >
             <Text style={styles.register}>Register</Text>
           </Button>
@@ -155,3 +162,9 @@ export default class InterestRegister extends React.Component {
     );
   }
 }
+
+const mapDispatchToProps = {
+  registerInterests: actionCreators.registerInterests
+};
+
+export default connect(null, mapDispatchToProps)(InterestRegister);
