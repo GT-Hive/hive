@@ -1,6 +1,13 @@
 import React from 'react';
-import { createAppContainer, createStackNavigator } from 'react-navigation';
+import {
+  createStackNavigator
+} from 'react-navigation';
+import { createReduxContainer } from 'react-navigation-redux-helpers';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
+import ForgotConfirm from './screens/ForgotConfirm';
+import ForgotRequest from './screens/ForgotRequest';
 import Login from './screens/Login';
 import InterestRegister from './screens/Registration/InterestRegister';
 import IntroductionRequest from './screens/Registration/IntroductionRequest';
@@ -8,8 +15,6 @@ import NameRequest from './screens/Registration/NameRequest';
 import RegisterConfirm from './screens/Registration/RegisterConfirm';
 import UserInformationRequest from './screens/Registration/UserInformationRequest';
 
-import ForgotConfirm from './screens/ForgotConfirm';
-import ForgotRequest from './screens/ForgotRequest';
 
 const AuthStack = createStackNavigator({
   Login: {
@@ -50,11 +55,29 @@ export const AppNavigator = createStackNavigator({
   headerMode: 'none'
 });
 
-export default class AppWithNavigationState extends React.Component {
-  render() {
-    const AppContainer = createAppContainer(AppNavigator);
-    return (
-      <AppContainer />
-    );
-  }
-}
+// class AppWithNavigationState extends React.Component {
+//   static propTypes = {
+//     dispatch: PropTypes.func.isRequired,
+//     nav: PropTypes.object.isRequired
+//   };
+
+//   render() {
+//     const { dispatch, nav } = this.props;
+//     const AppContainer = createAppContainer(AppNavigator);
+//     return (
+//       <AppContainer
+//         navigation={addNavigationHelpers({
+//           dispatch,
+//           state: nav
+//         })}
+//       />
+//     );
+//   }
+// }
+
+
+const mapStateToProps = state => ({ nav: state.nav });
+
+const AppWithNavigationState = connect(mapStateToProps)(createReduxContainer(AppNavigator, 'root'));
+
+export default AppWithNavigationState;

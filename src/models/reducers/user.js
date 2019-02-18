@@ -29,7 +29,7 @@ export default (state = initialState, action) => {
         ...state,
         intro: action.intro
       };
-    case actionTypes.REGISTER_INTERESTS:
+    case actionTypes.REGISTER_USER:
       action.interests.forEach((interest) => {
         state.interests.add(interest);
       });

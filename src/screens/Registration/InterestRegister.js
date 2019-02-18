@@ -1,9 +1,11 @@
 import _ from 'lodash';
 import React from 'react';
 import { Text, TouchableOpacity, View, StyleSheet } from 'react-native';
+import { StackActions, NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 
 import Button from '../../components/Button';
+import store from '../../models';
 import { actionCreators } from '../../models/actions/user';
 import { COLORS, STYLES } from '../../res';
 
@@ -112,7 +114,7 @@ class InterestRegister extends React.Component {
     }
   }
 
-  _makeButtons() {
+  _makeButtons = () => {
     const tagButtonColor = { borderColor: COLORS.WHITE };
     return this.state.communities.map((community) => {
       if (this.state.selected.includes(community)) {
@@ -133,9 +135,21 @@ class InterestRegister extends React.Component {
     });
   }
 
-  render() {
-    const { navigation, registerInterests } = this.props;
+  // TODO(roy): handle navigation when registration fails -> show toast and stay on current screen
+  // TODO(roy): views should only be responsible for views. move navigation logics to controller
+  _registerUser = () => {
+    const { navigation, registerUser } = this.props;
+    const resetStack = StackActions.reset({
+      index: 0,
+      actions: [NavigationActions.navigate({ routeName: 'Login' })],
+    });
 
+    const { interests, ...userInfo } = store.getState().user;
+    registerUser(userInfo, this.state.selected);
+    navigation.dispatch(resetStack);
+  }
+
+  render() {
     return (
       <View style={styles.outerContainer}>
         <View style={styles.introContainer}>
@@ -150,10 +164,7 @@ class InterestRegister extends React.Component {
         <View style={styles.registerBtnContainer}>
           <Button
             style={styles.registerBtn}
-            onPress={() => {
-              registerInterests(this.state.selected);
-              navigation.navigate('RegisterConfirm');
-            }}
+            onPress={this._registerUser}
           >
             <Text style={styles.register}>Register</Text>
           </Button>
@@ -164,7 +175,7 @@ class InterestRegister extends React.Component {
 }
 
 const mapDispatchToProps = {
-  registerInterests: actionCreators.registerInterests
+  registerUser: actionCreators.registerUser
 };
 
 export default connect(null, mapDispatchToProps)(InterestRegister);

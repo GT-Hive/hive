@@ -1,13 +1,13 @@
 const REGISTER_NAME = 'hive/user/REGISTER_NAME';
 const REGISTER_USER_INFORMATION = 'hive/user/REGISTER_USER_INFORMATION';
 const REGISTER_INTRODUCTION = 'hive/user/REGISTER_INTRODUCTION';
-const REGISTER_INTERESTS = 'hive/user/REGISTER_INTERESTS';
+const REGISTER_USER = 'hive/user/REGISTER_USER';
 
 export const actionTypes = {
   REGISTER_NAME,
   REGISTER_USER_INFORMATION,
   REGISTER_INTRODUCTION,
-  REGISTER_INTERESTS
+  REGISTER_USER
 };
 
 const registerName = (firstName, lastName) => ({
@@ -27,8 +27,9 @@ const registerIntroduction = intro => ({
   intro
 });
 
-const registerInterests = interests => ({
-  type: REGISTER_INTERESTS,
+const registerUser = (userInfo, interests) => ({
+  type: REGISTER_USER,
+  userInfo,
   interests
 });
 
@@ -36,5 +37,5 @@ export const actionCreators = {
   registerInformation,
   registerName,
   registerIntroduction,
-  registerInterests
+  registerUser
 };
