@@ -3,6 +3,7 @@ import {
   createStackNavigator
 } from 'react-navigation';
 import {
+  createReactNavigationReduxMiddleware,
   createReduxContainer
 } from 'react-navigation-redux-helpers';
 import { connect } from 'react-redux';
@@ -56,6 +57,10 @@ export const AppNavigator = createStackNavigator(AppRouteConfigs, {
   initialRouteName: 'Auth',
   headerMode: 'none'
 });
+
+export const navMiddleware = createReactNavigationReduxMiddleware(
+  state => state.nav
+);
 
 const AppContainer = createReduxContainer(AppNavigator, 'root');
 
