@@ -1,12 +1,11 @@
 import { applyMiddleware, createStore } from 'redux';
 import { createEpicMiddleware } from 'redux-observable';
-import { navMiddleware } from '../AppNavigator';
+import navMiddleware from '../common/ReduxUtils';
 
 import rootEpic from './epics';
 import rootReducer from './reducers';
 
 const epicMiddleware = createEpicMiddleware();
-epicMiddleware.run(rootEpic);
 
 export default () => {
   const store = createStore(
@@ -16,5 +15,6 @@ export default () => {
       navMiddleware
     )
   );
+  epicMiddleware.run(rootEpic);
   return store;
 };

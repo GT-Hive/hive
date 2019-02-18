@@ -1,12 +1,7 @@
 import React from 'react';
-import {
-  createStackNavigator
-} from 'react-navigation';
-import {
-  createReactNavigationReduxMiddleware,
-  createReduxContainer
-} from 'react-navigation-redux-helpers';
+import { createStackNavigator } from 'react-navigation';
 import { connect } from 'react-redux';
+import { createReduxContainer } from 'react-navigation-redux-helpers';
 
 import ForgotConfirm from './screens/ForgotConfirm';
 import ForgotRequest from './screens/ForgotRequest';
@@ -58,14 +53,9 @@ export const AppNavigator = createStackNavigator(AppRouteConfigs, {
   headerMode: 'none'
 });
 
-export const navMiddleware = createReactNavigationReduxMiddleware(
-  state => state.nav
-);
-
-const AppContainer = createReduxContainer(AppNavigator, 'root');
-
 class AppWithNavigationState extends React.Component {
   render() {
+    const AppContainer = createReduxContainer(AppNavigator);
     return (
       <AppContainer
         state={this.props.nav}
