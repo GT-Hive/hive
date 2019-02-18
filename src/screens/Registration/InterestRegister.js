@@ -4,7 +4,6 @@ import { Text, TouchableOpacity, View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 
 import Button from '../../components/Button';
-// import store from '../../models';
 import { actionCreators } from '../../models/actions/user';
 import { COLORS, STYLES } from '../../res';
 
@@ -136,17 +135,7 @@ class InterestRegister extends React.Component {
 
   // TODO(roy): handle navigation when registration fails -> show toast and stay on current screen
   // TODO(roy): views should only be responsible for views. move navigation logics to controller
-  _registerUser = () => {
-    const { navigation, registerUser } = this.props;
-    // const resetStack = StackActions.reset({
-    //   index: 0,
-    //   actions: [NavigationActions.navigate({ routeName: 'Login' })],
-    // });
-
-    // const { interests, ...userInfo } = store.getState().user;
-    // registerUser(userInfo, this.state.selected);
-    // navigation.dispatch(resetStack);
-  }
+  _registerUser = () => {}
 
   render() {
     return (

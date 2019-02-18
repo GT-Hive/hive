@@ -1,7 +1,8 @@
 import React from 'react';
-import { createStackNavigator } from 'react-navigation';
-import { connect } from 'react-redux';
+import { BackHandler } from 'react-native';
+import { createStackNavigator, NavigationActions } from 'react-navigation';
 import { createReduxContainer } from 'react-navigation-redux-helpers';
+import { connect } from 'react-redux';
 
 import ForgotConfirm from './screens/ForgotConfirm';
 import ForgotRequest from './screens/ForgotRequest';
@@ -9,7 +10,6 @@ import Login from './screens/Login';
 import InterestRegister from './screens/Registration/InterestRegister';
 import IntroductionRequest from './screens/Registration/IntroductionRequest';
 import NameRequest from './screens/Registration/NameRequest';
-import RegisterConfirm from './screens/Registration/RegisterConfirm';
 import UserInformationRequest from './screens/Registration/UserInformationRequest';
 
 const AuthStack = createStackNavigator({
@@ -27,9 +27,6 @@ const AuthStack = createStackNavigator({
   },
   Interest: {
     screen: InterestRegister
-  },
-  RegisterConfirm: {
-    screen: RegisterConfirm
   },
   ForgotRequest: {
     screen: ForgotRequest
@@ -54,12 +51,30 @@ export const AppNavigator = createStackNavigator(AppRouteConfigs, {
 });
 
 class AppWithNavigationState extends React.Component {
+  componentDidMount() {
+    BackHandler.addEventListener('hardwareBackPress', this._onBackPress);
+  }
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this._onBackPress);
+  }
+
+  _onBackPress = () => {
+    const { dispatch, nav } = this.props;
+    if (nav.index > 0) {
+      return false;
+    }
+    dispatch(NavigationActions.back());
+    return true;
+  }
+
   render() {
+    const { dispatch, nav } = this.props;
     const AppContainer = createReduxContainer(AppNavigator);
     return (
       <AppContainer
-        state={this.props.nav}
-        dispatch={this.props.dispatch}
+        state={nav}
+        dispatch={dispatch}
       />
     );
   }
