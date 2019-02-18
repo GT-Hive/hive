@@ -1,17 +1,24 @@
 import { applyMiddleware, createStore } from 'redux';
-import { createEpicMiddleware } from 'redux-observable';
+import { createEpicMiddleware, createReactNavigationReduxMiddleware } from 'redux-observable';
 
-import navMiddleware from '../common/ReduxNavigation';
 import rootEpic from './epics';
 import rootReducer from './reducers';
 
-const epicMiddleware = createEpicMiddleware();
-
-const store = createStore(
-  rootReducer,
-  applyMiddleware(epicMiddleware, navMiddleware)
+const navMiddleware = createReactNavigationReduxMiddleware(
+  'root',
+  state => state.nav
 );
 
+const epicMiddleware = createEpicMiddleware();
 epicMiddleware.run(rootEpic);
 
-export default store;
+export default () => {
+  const store = createStore(
+    rootReducer,
+    applyMiddleware(
+      epicMiddleware,
+      navMiddleware
+    )
+  );
+  return store;
+};
