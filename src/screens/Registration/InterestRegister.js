@@ -134,10 +134,8 @@ class InterestRegister extends React.Component {
   }
 
   // TODO(roy): handle navigation when registration fails -> show toast and stay on current screen
-  // TODO(roy): views should only be responsible for views. move navigation logics to controller
-  _registerUser = () => {}
-
   render() {
+    const { createUser, userInfo } = this.props;
     return (
       <View style={styles.outerContainer}>
         <View style={styles.introContainer}>
@@ -152,7 +150,7 @@ class InterestRegister extends React.Component {
         <View style={styles.registerBtnContainer}>
           <Button
             style={styles.registerBtn}
-            onPress={this._registerUser}
+            onPress={() => createUser((userInfo, this.state.selected))}
           >
             <Text style={styles.register}>Register</Text>
           </Button>
@@ -162,8 +160,13 @@ class InterestRegister extends React.Component {
   }
 }
 
-const mapDispatchToProps = {
-  registerUser: actionCreators.registerUser
+const mapStateToProps = ({ user }) => {
+  const { interests, ...userInfo } = user;
+  return { userInfo };
 };
 
-export default connect(null, mapDispatchToProps)(InterestRegister);
+const mapDispatchToProps = {
+  createUser: actionCreators.createUser
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(InterestRegister);
