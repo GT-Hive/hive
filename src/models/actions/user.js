@@ -3,13 +3,15 @@ const REGISTER_USER_INFORMATION = 'hive/user/REGISTER_USER_INFORMATION';
 const REGISTER_INTRODUCTION = 'hive/user/REGISTER_INTRODUCTION';
 const CREATE_USER = 'hive/user/CREATE_USER';
 const CREATE_USER_SUCCEED = 'hive/user/CREATE_USER_SUCCEED';
+const CREATE_USER_FAILED = 'hive/user/CREATE_USER_FAILED';
 
 export const actionTypes = {
   REGISTER_NAME,
   REGISTER_USER_INFORMATION,
   REGISTER_INTRODUCTION,
   CREATE_USER,
-  CREATE_USER_SUCCEED
+  CREATE_USER_SUCCEED,
+  CREATE_USER_FAILED
 };
 
 const registerName = (firstName, lastName) => ({
@@ -40,10 +42,16 @@ const createUserSucceed = user => ({
   user
 });
 
+const createUserFailed = error => ({
+  type: CREATE_USER_FAILED,
+  error
+});
+
 export const actionCreators = {
   registerInformation,
   registerName,
   registerIntroduction,
   createUser,
-  createUserSucceed
+  createUserSucceed,
+  createUserFailed
 };

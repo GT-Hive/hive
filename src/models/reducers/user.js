@@ -29,10 +29,13 @@ export default (state = initialState, action) => {
         ...state,
         intro: action.intro
       };
-    case actionTypes.REGISTER_USER_SUCCEED:
+    case actionTypes.CREATE_USER_SUCCEED:
       action.interests.forEach((interest) => {
         state.interests.add(interest);
       });
+      return state;
+    case actionTypes.CREATE_USER_FAILED:
+      console.error(action.error);
       return state;
     default:
       return state;
