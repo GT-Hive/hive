@@ -8,7 +8,7 @@ import api from '../../requests/auth';
 
 export default action$ => action$.pipe(
   ofType(actionTypes.CREATE_USER),
-  switchMap(action => api.createUser(action.userInfo, action.interests).pipe(
+  switchMap(action => api.createUser(action.userInfo, action.communities).pipe(
     flatMap(user => [
       userActionCreators.createUserSucceed(user),
       navActionCreators.resetStack()

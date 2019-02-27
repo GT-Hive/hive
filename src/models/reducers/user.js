@@ -2,12 +2,12 @@ import { actionTypes } from '../actions/user';
 
 // TODO(roy): profileImg is temporarily removed. This should also be a field in future.
 const initialState = {
-  firstName: '',
-  lastName: '',
+  first_name: '',
+  last_name: '',
   email: '',
   password: '',
   intro: '',
-  interests: new Set()
+  communities: new Set()
 };
 
 export default (state = initialState, action) => {
@@ -15,8 +15,8 @@ export default (state = initialState, action) => {
     case actionTypes.REGISTER_NAME:
       return {
         ...state,
-        firstName: action.firstName,
-        lastName: action.lastName
+        first_name: action.firstName,
+        last_name: action.lastName
       };
     case actionTypes.REGISTER_USER_INFORMATION:
       return {
@@ -30,8 +30,8 @@ export default (state = initialState, action) => {
         intro: action.intro
       };
     case actionTypes.CREATE_USER_SUCCEED:
-      action.interests.forEach((interest) => {
-        state.interests.add(interest);
+      action.communities.forEach((community) => {
+        state.communities.add(community);
       });
       return state;
     case actionTypes.CREATE_USER_FAILED:

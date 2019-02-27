@@ -86,7 +86,7 @@ class TagButton extends React.Component {
   }
 }
 
-class InterestRegister extends React.Component {
+class CommunitiesRegister extends React.Component {
   // TODO(roy): Remove dummy state values later
   constructor(props) {
     super(props);
@@ -139,7 +139,7 @@ class InterestRegister extends React.Component {
     return (
       <View style={styles.outerContainer}>
         <View style={styles.introContainer}>
-          <Text style={styles.heading}>Select your interests</Text>
+          <Text style={styles.heading}>Select your Communities</Text>
           <Text style={STYLES.TEXT_TERTIARY}>
             {this.state.description}
           </Text>
@@ -150,7 +150,7 @@ class InterestRegister extends React.Component {
         <View style={styles.registerBtnContainer}>
           <Button
             style={styles.registerBtn}
-            onPress={() => createUser((userInfo, this.state.selected))}
+            onPress={() => createUser(userInfo, this.state.selected)}
           >
             <Text style={styles.register}>Register</Text>
           </Button>
@@ -161,7 +161,7 @@ class InterestRegister extends React.Component {
 }
 
 const mapStateToProps = ({ user }) => {
-  const { interests, ...userInfo } = user;
+  const { communities, ...userInfo } = user;
   return { userInfo };
 };
 
@@ -169,4 +169,4 @@ const mapDispatchToProps = {
   createUser: actionCreators.createUser
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(InterestRegister);
+export default connect(mapStateToProps, mapDispatchToProps)(CommunitiesRegister);

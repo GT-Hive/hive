@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import ForgotConfirm from './screens/ForgotConfirm';
 import ForgotRequest from './screens/ForgotRequest';
 import Login from './screens/Login';
-import InterestRegister from './screens/Registration/InterestRegister';
+import CommunitiesRegister from './screens/Registration/CommunitiesRegister';
 import IntroductionRequest from './screens/Registration/IntroductionRequest';
 import NameRequest from './screens/Registration/NameRequest';
 import UserInformationRequest from './screens/Registration/UserInformationRequest';
@@ -25,8 +25,8 @@ const AuthStack = createStackNavigator({
   Introduction: {
     screen: IntroductionRequest
   },
-  Interest: {
-    screen: InterestRegister
+  CommunitiesRegister: {
+    screen: CommunitiesRegister
   },
   ForgotRequest: {
     screen: ForgotRequest

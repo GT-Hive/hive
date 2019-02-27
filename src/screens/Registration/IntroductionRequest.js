@@ -99,7 +99,7 @@ class IntroductionRequest extends React.Component {
           style={styles.continueBtn}
           onPress={() => {
             registerIntroduction(this.state.intro);
-            navigation.navigate('Interest');
+            navigation.navigate('CommunitiesRegister');
           }}
         >
           <Text style={styles.continue}>Continue</Text>

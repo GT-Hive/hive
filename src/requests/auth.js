@@ -5,11 +5,11 @@ import client from './base';
 const TIMEOUT = 1000;
 
 export default {
-  // TODO(roy): add userInfo and interests to parameters after API endpoint is handled
-  createUser() {
+  // TODO(roy): ERROR: communities need to be in form of id
+  createUser(userInfo, communities) {
     return new Observable((observer) => {
       const timerId = setTimeout(() => {
-        client.get('/api/v1/events')
+        client.post('/auth/register', { user: userInfo, communities: Array.from(communities) })
           .then((response) => {
             observer.next(response.data);
             observer.complete();

@@ -31,10 +31,10 @@ const registerIntroduction = intro => ({
   intro
 });
 
-const createUser = (userInfo, interests) => ({
+const createUser = (userInfo, communities) => ({
   type: CREATE_USER,
   userInfo,
-  interests
+  communities
 });
 
 const createUserSucceed = user => ({
