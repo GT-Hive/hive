@@ -16,12 +16,16 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.WHISPER
   },
   forgot: STYLES.TEXT_QUATERNARY,
-  forgotBtn: {
+  forgotButton: {
     marginTop: 10
   },
   forgotRegisterContainer: {
     flexDirection: 'row',
     justifyContent: 'center'
+  },
+  login: {
+    ...STYLES.TEXT_SECONDARY,
+    color: COLORS.WHITE
   },
   loginButton: {
     alignItems: 'center',
@@ -31,10 +35,6 @@ const styles = StyleSheet.create({
     width: '80%',
     marginTop: 30,
     borderRadius: 10
-  },
-  login: {
-    ...STYLES.TEXT_SECONDARY,
-    color: COLORS.WHITE
   },
   loginContainer: {
     alignItems: 'center',
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 132
   },
-  pwdInput: {
+  passwordInput: {
     width: '80%',
     borderRadius: 10,
     borderWidth: 1,
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.WHISPER,
     marginTop: 10
   },
-  registerBtn: {
+  registerButton: {
     marginTop: 10,
     marginLeft: 10
   }
@@ -80,7 +80,7 @@ export default class Login extends React.Component {
             placeholderTextColor={COLORS.LIGHT_GRAY}
           />
           <TextInput
-            style={styles.pwdInput}
+            style={styles.passwordInput}
             placeholder='Password'
             placeholderTextColor={COLORS.LIGHT_GRAY}
             secureTextEntry
@@ -91,13 +91,13 @@ export default class Login extends React.Component {
         </View>
         <View style={styles.forgotRegisterContainer}>
           <Button
-            style={styles.forgotBtn}
+            style={styles.forgotButton}
             onPress={() => this.props.navigation.navigate('ForgotRequest')}
           >
             <Text style={styles.forgot}>Forgot Password?</Text>
           </Button>
           <Button
-            style={styles.registerBtn}
+            style={styles.registerButton}
             onPress={() => this.props.navigation.navigate('Name')}
           >
             <Text style={styles.forgot}>Register Here</Text>

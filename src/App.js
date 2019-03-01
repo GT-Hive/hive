@@ -1,8 +1,8 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 
-import AppWithNavigationState from './AppNavigator';
 import configureStore from './models';
+import AppWithNavigationState from './AppNavigator';
 
 const store = configureStore();
 

@@ -1,15 +1,16 @@
 import React from 'react';
-import { createAppContainer, createStackNavigator } from 'react-navigation';
-
-import Login from './screens/Login';
-import InterestRegister from './screens/Registration/InterestRegister';
-import IntroductionRequest from './screens/Registration/IntroductionRequest';
-import NameRequest from './screens/Registration/NameRequest';
-import RegisterConfirm from './screens/Registration/RegisterConfirm';
-import UserInformationRequest from './screens/Registration/UserInformationRequest';
+import { BackHandler } from 'react-native';
+import { createStackNavigator, NavigationActions } from 'react-navigation';
+import { createReduxContainer } from 'react-navigation-redux-helpers';
+import { connect } from 'react-redux';
 
 import ForgotConfirm from './screens/ForgotConfirm';
 import ForgotRequest from './screens/ForgotRequest';
+import Login from './screens/Login';
+import CommunitiesRegister from './screens/Registration/CommunitiesRegister';
+import IntroductionRequest from './screens/Registration/IntroductionRequest';
+import NameRequest from './screens/Registration/NameRequest';
+import UserInformationRequest from './screens/Registration/UserInformationRequest';
 
 const AuthStack = createStackNavigator({
   Login: {
@@ -24,11 +25,8 @@ const AuthStack = createStackNavigator({
   Introduction: {
     screen: IntroductionRequest
   },
-  Interest: {
-    screen: InterestRegister
-  },
-  RegisterConfirm: {
-    screen: RegisterConfirm
+  CommunitiesRegister: {
+    screen: CommunitiesRegister
   },
   ForgotRequest: {
     screen: ForgotRequest
@@ -41,20 +39,47 @@ const AuthStack = createStackNavigator({
   headerMode: 'none'
 });
 
-export const AppNavigator = createStackNavigator({
+const AppRouteConfigs = {
   Auth: {
     screen: AuthStack
   }
-}, {
+};
+
+export const AppNavigator = createStackNavigator(AppRouteConfigs, {
   initialRouteName: 'Auth',
   headerMode: 'none'
 });
 
-export default class AppWithNavigationState extends React.Component {
+class AppWithNavigationState extends React.Component {
+  componentDidMount() {
+    BackHandler.addEventListener('hardwareBackPress', this._onBackPress);
+  }
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this._onBackPress);
+  }
+
+  _onBackPress = () => {
+    const { dispatch, nav } = this.props;
+    if (nav.index > 0) {
+      return false;
+    }
+    dispatch(NavigationActions.back());
+    return true;
+  }
+
   render() {
-    const AppContainer = createAppContainer(AppNavigator);
+    const { dispatch, nav } = this.props;
+    const AppContainer = createReduxContainer(AppNavigator);
     return (
-      <AppContainer />
+      <AppContainer
+        state={nav}
+        dispatch={dispatch}
+      />
     );
   }
 }
+
+const mapStateToProps = state => ({ nav: state.nav });
+
+export default connect(mapStateToProps)(AppWithNavigationState);
