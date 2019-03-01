@@ -29,14 +29,15 @@ export default (state = initialState, action) => {
         ...state,
         intro: action.intro
       };
-    case actionTypes.CREATE_USER_SUCCEED:
+    case actionTypes.CREATE_USER:
       action.communities.forEach((community) => {
         state.communities.add(community);
       });
       return state;
     case actionTypes.CREATE_USER_FAILED:
-      console.error(action.error);
+      console.warn(action.error.response.data);
       return state;
+    case actionTypes.CREATE_USER_SUCCEED:
     default:
       return state;
   }

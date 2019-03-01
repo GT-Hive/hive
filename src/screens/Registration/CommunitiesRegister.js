@@ -1,10 +1,11 @@
 import _ from 'lodash';
 import React from 'react';
-import { Text, TouchableOpacity, View, StyleSheet } from 'react-native';
+import { ScrollView, Text, TouchableOpacity, View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 
 import Button from '../../components/Button';
-import { actionCreators } from '../../models/actions/user';
+import { actionCreators as communityActionCreators } from '../../models/actions/community';
+import { actionCreators as userActionCreators } from '../../models/actions/user';
 import { COLORS, STYLES } from '../../res';
 
 const styles = StyleSheet.create({
@@ -68,7 +69,6 @@ const styles = StyleSheet.create({
   }
 });
 
-// TODO(roy): Is TagButton accessed elsewhere? Move if so
 // TODO(roy): Replace TouchableOpacity with custom button
 class TagButton extends React.Component {
   render() {
@@ -87,35 +87,38 @@ class TagButton extends React.Component {
 }
 
 class CommunitiesRegister extends React.Component {
-  // TODO(roy): Remove dummy state values later
   constructor(props) {
     super(props);
     this.state = {
       selected: [],
-      communities: ['Economics', '3D Modelling', 'Japanese', 'Media Studies',
-        'Art', 'Artificial Intelligence', 'Computer Vision'],
       description: 'There are many communities for many topics.\n'
         + 'You can join more later as you find them!'
     };
   }
 
-  _onPress = (community) => {
+  componentDidMount() {
+    this.props.reloadCommunities();
+  }
+
+  _onPress = (communityId) => {
     const { selected } = this.state;
-    if (selected.includes(community)) {
+    if (selected.includes(communityId)) {
       this.setState({
-        selected: _.pull(selected, community)
+        selected: _.pull(selected, communityId)
       });
     } else {
       this.setState({
-        selected: _.concat(selected, community)
+        selected: _.concat(selected, communityId)
       });
     }
   }
 
   _makeButtons = () => {
     const tagButtonColor = { borderColor: COLORS.WHITE };
-    return this.state.communities.map((community) => {
-      if (this.state.selected.includes(community)) {
+    const { communities } = this.props;
+    return communities.map((community) => {
+      const communityId = community.id;
+      if (this.state.selected.includes(communityId)) {
         tagButtonColor.backgroundColor = COLORS.BUZZ_GOLD;
         tagButtonColor.color = COLORS.WHITE;
       } else {
@@ -125,48 +128,57 @@ class CommunitiesRegister extends React.Component {
       return (
         <TagButton
           {...tagButtonColor}
-          onPress={() => this._onPress(community)}
-          key={community}
-          title={community}
+          onPress={() => this._onPress(communityId)}
+          key={community.id}
+          title={community.name}
         />
       );
     });
   }
 
   // TODO(roy): handle navigation when registration fails -> show toast and stay on current screen
+  // TODO(roy): Find ways to change {communities ? this._makeButtons() : null}
   render() {
-    const { createUser, userInfo } = this.props;
+    const { communities, createUser, userInfo } = this.props;
     return (
-      <View style={styles.outerContainer}>
-        <View style={styles.introContainer}>
-          <Text style={styles.heading}>Select your Communities</Text>
-          <Text style={STYLES.TEXT_TERTIARY}>
-            {this.state.description}
-          </Text>
+      <ScrollView>
+        <View style={styles.outerContainer}>
+          <View style={styles.introContainer}>
+            <Text style={styles.heading}>Select Your Communities</Text>
+            <Text style={STYLES.TEXT_TERTIARY}>
+              {this.state.description}
+            </Text>
+          </View>
+          <View style={styles.tagBtnContainer}>
+            {communities ? this._makeButtons() : null}
+          </View>
+          <View style={styles.registerBtnContainer}>
+            <Button
+              style={styles.registerBtn}
+              onPress={() => createUser(userInfo, this.state.selected)}
+            >
+              <Text style={styles.register}>Register</Text>
+            </Button>
+          </View>
         </View>
-        <View style={styles.tagBtnContainer}>
-          {this._makeButtons()}
-        </View>
-        <View style={styles.registerBtnContainer}>
-          <Button
-            style={styles.registerBtn}
-            onPress={() => createUser(userInfo, this.state.selected)}
-          >
-            <Text style={styles.register}>Register</Text>
-          </Button>
-        </View>
-      </View>
+      </ScrollView>
     );
   }
 }
 
-const mapStateToProps = ({ user }) => {
-  const { communities, ...userInfo } = user;
-  return { userInfo };
+const mapStateToProps = ({ community, user }) => {
+  const { communities: userCommunities, ...userInfo } = user;
+  const { communities: allCommunities } = community.communities;
+
+  return {
+    communities: allCommunities,
+    userInfo
+  };
 };
 
 const mapDispatchToProps = {
-  createUser: actionCreators.createUser
+  createUser: userActionCreators.createUser,
+  reloadCommunities: communityActionCreators.reloadCommunities
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CommunitiesRegister);
