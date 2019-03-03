@@ -1,12 +1,11 @@
 import React from 'react';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
+import Toast, { DURATION } from 'react-native-easy-toast';
 import { connect } from 'react-redux';
 
 import hasFieldsFilled from '../../common/Validation';
 import Button from '../../components/Button';
-import Toast from '../../components/Toast';
-import { actionCreators as screenActionCreators } from '../../models/actions/screen';
-import { actionCreators as userActionCreators } from '../../models/actions/user';
+import { actionCreators } from '../../models/actions/user';
 import { COLORS, STYLES } from '../../res';
 
 const styles = StyleSheet.create({
@@ -74,6 +73,21 @@ const styles = StyleSheet.create({
   }
 });
 
+const toastStyle = {
+  style: {
+    backgroundColor: COLORS.DARK_PINK,
+    borderRadius: 8,
+    paddingHorizontal: 10
+  },
+  textStyle: {
+    fontSize: 10,
+    color: COLORS.WHITE,
+    fontWeight: 'bold'
+  },
+  opacity: 0.7,
+  positionValue: 425
+};
+
 class UserInformationRequest extends React.Component {
   constructor(props) {
     super(props);
@@ -117,11 +131,11 @@ class UserInformationRequest extends React.Component {
     const { navigation, registerInformation } = this.props;
 
     if (!this._isValidEmail()) {
-      this.props.displayErrorToast('Email is not Valid Georgia Tech Email!');
+      this.toast.show('Email is not Valid Georgia Tech Email!', DURATION.LENGTH_LONG);
       return;
     }
     if (this.state.password !== this.state.confirmPassword) {
-      this.props.displayErrorToast('Password Does Not Match!');
+      this.toast.show('Password Does Not Match!', DURATION.LENGTH_LONG);
       return;
     }
     registerInformation(email, password);
@@ -176,17 +190,17 @@ class UserInformationRequest extends React.Component {
         >
           <Text style={styles.continue}>Continue</Text>
         </Button>
-        <Toast />
+        <Toast
+          {...toastStyle}
+          ref={(ref) => { this.toast = ref; }}
+        />
       </View>
     );
   }
 }
 
-const mapStateToProps = ({ screen }) => screen;
-
 const mapDispatchToProps = {
-  displayErrorToast: screenActionCreators.displayErrorToast,
-  registerInformation: userActionCreators.registerInformation
+  registerInformation: actionCreators.registerInformation
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserInformationRequest);
+export default connect(null, mapDispatchToProps)(UserInformationRequest);

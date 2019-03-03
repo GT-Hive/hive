@@ -2,7 +2,6 @@ import React from 'react';
 import { Image, StyleSheet, Text, TextInput, View } from 'react-native';
 
 import Button from '../components/Button';
-import Toast from '../components/Toast';
 import { COLORS, images, STYLES } from '../res';
 
 const styles = StyleSheet.create({
@@ -49,10 +48,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 132
   },
-  outerContainer: {
-    width: '100%',
-    height: '100%'
-  },
   passwordInput: {
     width: '80%',
     borderRadius: 10,
@@ -73,7 +68,7 @@ const styles = StyleSheet.create({
 export default class Login extends React.Component {
   render() {
     return (
-      <View style={styles.outerContainer}>
+      <View>
         <View style={styles.logoContainer}>
           <Text style={STYLES.TEXT_PRIMARY}>HIVE</Text>
           <Image style={styles.logo} source={images.logo} />
@@ -108,7 +103,6 @@ export default class Login extends React.Component {
             <Text style={styles.forgot}>Register Here</Text>
           </Button>
         </View>
-        <Toast />
       </View>
     );
   }

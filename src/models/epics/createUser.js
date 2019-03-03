@@ -3,7 +3,6 @@ import { of } from 'rxjs';
 import { catchError, flatMap, switchMap } from 'rxjs/operators';
 
 import { actionCreators as navActionCreators } from '../actions/navigation';
-import { actionCreators as screenActionCreators } from '../actions/screen';
 import { actionCreators as userActionCreators, actionTypes } from '../actions/user';
 import api from '../../requests/auth';
 
@@ -12,8 +11,7 @@ export default action$ => action$.pipe(
   switchMap(action => api.createUser(action.userInfo, action.communities).pipe(
     flatMap(user => [
       userActionCreators.createUserSucceed(user),
-      navActionCreators.resetStack(),
-      screenActionCreators.displaySuccessToast('Registration Success! Please Verify Email Before Login')
+      navActionCreators.resetStack()
     ]),
     catchError(error => of(userActionCreators.createUserFailed(error)))
   ))
