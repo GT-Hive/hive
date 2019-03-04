@@ -1,7 +1,9 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { NavigationActions, StackActions } from 'react-navigation';
+import { connect } from 'react-redux';
 
+import Toast from '../components/Toast';
 import Button from '../components/Button';
 import { COLORS, STYLES } from '../res';
 
