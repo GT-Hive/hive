@@ -1,8 +1,10 @@
 import React from 'react';
 import { Image, StyleSheet, Text, TextInput, View } from 'react-native';
+import { connect } from 'react-redux';
 
 import Button from '../components/Button';
 import Toast from '../components/Toast';
+import { actionCreators } from '../models/actions/session';
 import { COLORS, images, STYLES } from '../res';
 
 const styles = StyleSheet.create({
@@ -70,7 +72,15 @@ const styles = StyleSheet.create({
   }
 });
 
-export default class Login extends React.Component {
+class Login extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: '',
+      password: ''
+    };
+  }
+
   render() {
     return (
       <View style={styles.outerContainer}>
@@ -81,16 +91,21 @@ export default class Login extends React.Component {
         <View style={styles.loginContainer}>
           <TextInput
             style={styles.emailInput}
+            onChangeText={email => this.setState({ email })}
             placeholder='Email ID'
             placeholderTextColor={COLORS.LIGHT_GRAY}
           />
           <TextInput
             style={styles.passwordInput}
+            onChangeText={password => this.setState({ password })}
             placeholder='Password'
             placeholderTextColor={COLORS.LIGHT_GRAY}
             secureTextEntry
           />
-          <Button style={styles.loginButton}>
+          <Button
+            style={styles.loginButton}
+            onPress={() => this.props.loginUser(this.state.email, this.state.password)}
+          >
             <Text style={styles.login}>Login</Text>
           </Button>
         </View>
@@ -113,3 +128,11 @@ export default class Login extends React.Component {
     );
   }
 }
+
+const mapStateToProps = ({ session }) => session;
+
+const mapDispatchToProps = {
+  loginUser: actionCreators.loginUser
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

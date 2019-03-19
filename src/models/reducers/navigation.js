@@ -20,6 +20,16 @@ export default (state = initialState, action) => {
         state
       );
       break;
+    case actionTypes.LOGIN_USER:
+      nextState = AppNavigator.router.getStateForAction(
+        StackActions.reset({
+          index: 0,
+          key: null,
+          actions: [NavigationActions.navigate({ routeName: 'Main' })]
+        }),
+        state
+      );
+      break;
     default:
       nextState = AppNavigator.router.getStateForAction(action, state);
       break;
