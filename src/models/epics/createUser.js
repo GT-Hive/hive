@@ -15,7 +15,10 @@ export default action$ => action$.pipe(
       navActionCreators.resetStack(),
       screenActionCreators.displaySuccessToast('Registration Success! Please Verify Email Before Login')
     ]),
-    catchError(error => of(userActionCreators.createUserFailed(error)))
+    catchError(error => of(
+      userActionCreators.createUserFailed(error),
+      screenActionCreators.displayErrorToast(error.response.data.error)
+    ))
   ))
 );
 // TODO(roy): catch and handle error properly

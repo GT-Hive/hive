@@ -20,5 +20,22 @@ export default {
       }, TIMEOUT);
       return () => clearTimeout(timerId);
     });
+  },
+  loginUser(email, password) {
+    return new Observable((observer) => {
+      const timerId = setTimeout(() => {
+        client.post('/auth/login', { user: { email, password } })
+          .then((response) => {
+            client.defaults.headers.Authorization = `Bearer ${response.data.token}`;
+            observer.next(response.data);
+            observer.complete();
+          })
+          .catch((error) => {
+            observer.error(error);
+            observer.complete();
+          });
+      }, TIMEOUT);
+      return () => clearTimeout(timerId);
+    });
   }
 };
