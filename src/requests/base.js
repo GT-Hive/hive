@@ -1,12 +1,9 @@
 import axios from 'axios';
 
-// const { token } = store.getState().auth;
-
 const defaultOptions = {
   baseURL: 'https://gt-hive-api.herokuapp.com/api/v1',
   headers: {
-    'Content-Type': 'application/json',
-    // Authorization: token ? `Bearer ${token}` : ''
+    'Content-Type': 'application/json'
   }
 };
 

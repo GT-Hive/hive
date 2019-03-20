@@ -26,6 +26,7 @@ export default {
       const timerId = setTimeout(() => {
         client.post('/auth/login', { user: { email, password } })
           .then((response) => {
+            client.defaults.headers.Authorization = `Bearer ${response.data.token}`;
             observer.next(response.data);
             observer.complete();
           })
