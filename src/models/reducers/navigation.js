@@ -4,7 +4,8 @@ import { AppNavigator } from '../../AppNavigator';
 import { actionTypes } from '../actions/navigation';
 
 const initialState = AppNavigator.router.getStateForAction(
-  AppNavigator.router.getActionForPathAndParams('Auth')
+  // AppNavigator.router.getActionForPathAndParams('Auth')
+  AppNavigator.router.getActionForPathAndParams('Community')
 );
 
 export default (state = initialState, action) => {

@@ -1,4 +1,7 @@
+import COLORS from './Colors';
+
 const STYLES = {
+  // Text styles
   TEXT_PRIMARY: {
     fontSize: 35,
     lineHeight: 40
@@ -15,12 +18,30 @@ const STYLES = {
     fontSize: 12,
     lineHeight: 15
   },
-  // TODO(roy): PROFILE_IMG should be the style for the users once inside the app
+  // Layout styles
+  OUTER_CONTAINER: {
+    height: '100%',
+    width: '100%',
+    flex: 1,
+  },
+  HEADER_CONTAINER: {
+    flexDirection: 'row',
+    marginHorizontal: 30,
+    marginVertical: 20,
+  },
+  TEXT_HEADING: {
+    flexDirection: 'column',
+    justifyContent: 'center',
+    fontSize: 35,
+    color: COLORS.BLACK,
+  },
   PROFILE_IMG: {
-    height: 60,
+    borderWidth: 3,
     borderRadius: 50,
-    width: 60
-  }
+    borderColor: COLORS.LIGHT_GRAY,
+    height: 60,
+    width: 60,
+  },
 };
 
 export default STYLES;
