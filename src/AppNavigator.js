@@ -11,7 +11,7 @@ import CommunitiesRegister from './screens/Registration/CommunitiesRegister';
 import IntroductionRequest from './screens/Registration/IntroductionRequest';
 import NameRequest from './screens/Registration/NameRequest';
 import UserInformationRequest from './screens/Registration/UserInformationRequest';
-import UserCommunity from './screens/UserCommunity';
+import CommunitiesList from './screens/Community/CommunitiesList';
 
 const AuthStack = createStackNavigator({
   Login: {
@@ -40,12 +40,12 @@ const AuthStack = createStackNavigator({
   headerMode: 'none'
 });
 
-const MainStack = createStackNavigator({
-  UserCommunity: {
-    screen: UserCommunity
+const CommunityStack = createStackNavigator({
+  CommunitiesList: {
+    screen: CommunitiesList
   }
 }, {
-  initialRouteName: 'UserCommunity',
+  initialRouteName: 'CommunitiesList',
   headerMode: 'none'
 });
 
@@ -53,8 +53,8 @@ const AppRouteConfigs = {
   Auth: {
     screen: AuthStack
   },
-  Main: {
-    screen: MainStack
+  Community: {
+    screen: CommunityStack
   }
 };
 

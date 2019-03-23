@@ -4,7 +4,8 @@ import { AppNavigator } from '../../AppNavigator';
 import { actionTypes } from '../actions/navigation';
 
 const initialState = AppNavigator.router.getStateForAction(
-  AppNavigator.router.getActionForPathAndParams('Auth')
+  // AppNavigator.router.getActionForPathAndParams('Auth')
+  AppNavigator.router.getActionForPathAndParams('Community')
 );
 
 export default (state = initialState, action) => {
@@ -25,7 +26,7 @@ export default (state = initialState, action) => {
         StackActions.reset({
           index: 0,
           key: null,
-          actions: [NavigationActions.navigate({ routeName: 'Main' })]
+          actions: [NavigationActions.navigate({ routeName: 'Community' })]
         }),
         state
       );
