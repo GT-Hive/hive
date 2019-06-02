@@ -23,6 +23,9 @@ export default (state = initialState, action) => {
         reloadCommunities: PROGRESS.IDLE,
         communities: action.communities
       };
+    case actionTypes.RELOAD_COMMUNITIES_FAILED:
+      console.warn(action.error);
+      return state;
     default:
       return state;
   }

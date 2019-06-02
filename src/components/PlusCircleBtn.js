@@ -11,12 +11,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     width: 70,
-    position: 'absolute',
-    bottom: 20,
-    right: 20,
     height: 70,
+    position: 'absolute',
+    bottom: 100,
+    right: 30,
     backgroundColor: COLORS.NEAR_BLACK,
     borderRadius: 100,
+    shadowRadius: 5,
+    shadowOffset: { width: 0, height: 2 },
+    shadowColor: COLORS.DIM_GRAY,
+    shadowOpacity: 1.0,
   }
 });
 
@@ -27,7 +31,7 @@ export default class PlusCircleBtn extends React.Component {
         // onPress={() => this._onPress()}
         style={styles.floatingBtn}
       >
-        <Icon name="md-add" size={30} color="#fff" />
+        <Icon name="md-add" size={30} color={COLORS.WHITE} />
       </TouchableOpacity>
     );
   }

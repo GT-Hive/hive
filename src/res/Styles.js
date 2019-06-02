@@ -23,11 +23,13 @@ const STYLES = {
     height: '100%',
     width: '100%',
     flex: 1,
+    marginBottom: 100
   },
   HEADER_CONTAINER: {
     flexDirection: 'row',
+    alignItems: 'center',
     marginHorizontal: 30,
-    marginVertical: 20,
+    marginVertical: 10
   },
   TEXT_HEADING: {
     flexDirection: 'column',

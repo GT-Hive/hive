@@ -4,6 +4,7 @@ import { AppNavigator } from '../../AppNavigator';
 import { actionTypes } from '../actions/navigation';
 
 const initialState = AppNavigator.router.getStateForAction(
+  // TODO(royhong): revert back to auth
   // AppNavigator.router.getActionForPathAndParams('Auth')
   AppNavigator.router.getActionForPathAndParams('Community')
 );
