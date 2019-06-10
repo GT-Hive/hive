@@ -12,7 +12,7 @@ import { connect } from 'react-redux';
 import SAFE_AREA_VIEW from '../../Constants';
 import Button from '../../components/Button';
 import PlusCircleBtn from '../../components/PlusCircleBtn';
-import { actionCreators as communityActionCreators } from '../../models/actions/community';
+import { actionCreators } from '../../models/actions/community';
 import { COLORS, STYLES } from '../../res';
 
 const styles = StyleSheet.create({
@@ -56,56 +56,69 @@ const styles = StyleSheet.create({
 });
 
 class CommunitiesList extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-    };
-  }
-
   componentDidMount() {
     this.props.reloadCommunities();
   }
 
+  _renderCommunities = () => {
+    const { communities, showScreen } = this.props;
+    if (!showScreen) {
+      return (
+        <View style={STYLES.OUTER_CONTAINER}>
+          <View style={STYLES.HEADER_CONTAINER} />
+        </View>
+      );
+    }
+    return (
+      <View style={STYLES.OUTER_CONTAINER}>
+        <View style={STYLES.HEADER_CONTAINER}>
+          <Image
+            style={styles.profileImg}
+            source={{ uri: 'https://facebook.github.io/react-native/docs/assets/favicon.png' }}
+          />
+          <Text style={STYLES.TEXT_HEADING}>Communities</Text>
+        </View>
+        <View style={styles.shadowBorder} />
+        <View style={styles.listContainer}>
+          <FlatList
+            data={communities}
+            keyExtractor={item => item.id.toString()}
+            renderItem={({ item }) => {
+              return (
+                <View>
+                  <Button
+                    style={styles.listBtn}
+                  >
+                    <Image
+                      style={styles.listImg}
+                      source={{ uri: item.img_url }}
+                    />
+                    <Text style={styles.listText}>{item.name}</Text>
+                  </Button>
+                  <View style={styles.border} />
+                </View>
+              );
+            }}
+          />
+        </View>
+      </View>
+    );
+  }
+
   render() {
-    const { communities, userInfo } = this.props;
+    const { navigation } = this.props;
+
+    const actions = [{
+      text: 'Join a New Community'
+    }, {
+      text: 'Create a New Community',
+      onPress: navigation.navigate('CommunityCreate')
+    }];
 
     return (
       <SafeAreaView style={SAFE_AREA_VIEW}>
-        <View style={STYLES.OUTER_CONTAINER}>
-          <View style={STYLES.HEADER_CONTAINER}>
-            <Image
-              style={styles.profileImg}
-              source={{ uri: 'https://facebook.github.io/react-native/docs/assets/favicon.png' }}
-            />
-            <Text style={STYLES.TEXT_HEADING}>Communities</Text>
-          </View>
-          <View style={styles.shadowBorder} />
-          <View style={styles.listContainer}>
-            <FlatList
-              data={communities}
-              keyExtractor={item => item.id.toString()}
-              showsVerticalScrollIndicator={false}
-              renderItem={({ item }) => {
-                return (
-                  <View>
-                    <Button
-                      style={styles.listBtn}
-                    // onPress={() => this.props.navigation.dispatch(resetStack)}
-                    >
-                      <Image
-                        style={styles.listImg}
-                        source={{ uri: item.img_url }}
-                      />
-                      <Text style={styles.listText}>{item.name}</Text>
-                    </Button>
-                    <View style={styles.border} />
-                  </View>
-                );
-              }}
-            />
-          </View>
-        </View>
-        <PlusCircleBtn />
+        {this._renderCommunities()}
+        <PlusCircleBtn actions={actions} />
       </SafeAreaView>
     );
   }
@@ -114,15 +127,17 @@ class CommunitiesList extends React.Component {
 const mapStateToProps = ({ community, user }) => {
   const { communities: userCommunities, ...userInfo } = user;
   const { communities: allCommunities } = community.communities;
+  const { showScreen } = community;
 
   return {
     communities: allCommunities,
+    showScreen,
     userInfo
   };
 };
 
 const mapDispatchToProps = {
-  reloadCommunities: communityActionCreators.reloadCommunities
+  reloadCommunities: actionCreators.reloadCommunities
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CommunitiesList);

@@ -6,6 +6,7 @@ const SAFE_AREA_VIEW = {
   backgroundColor: COLORS.BACKGROUND_PRIMARY,
   forceInset: {
     top: 'always',
+    bottom: 'always',
     horizontal: 'never'
   }
 };

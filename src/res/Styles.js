@@ -22,8 +22,7 @@ const STYLES = {
   OUTER_CONTAINER: {
     height: '100%',
     width: '100%',
-    flex: 1,
-    marginBottom: 100
+    flex: 1
   },
   HEADER_CONTAINER: {
     flexDirection: 'row',
