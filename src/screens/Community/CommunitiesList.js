@@ -112,7 +112,7 @@ class CommunitiesList extends React.Component {
       text: 'Join a New Community'
     }, {
       text: 'Create a New Community',
-      onPress: navigation.navigate('CommunityCreate')
+      onPress: () => navigation.navigate('CommunityCreate')
     }];
 
     return (
@@ -124,15 +124,13 @@ class CommunitiesList extends React.Component {
   }
 }
 
-const mapStateToProps = ({ community, user }) => {
-  const { communities: userCommunities, ...userInfo } = user;
-  const { communities: allCommunities } = community.communities;
+const mapStateToProps = ({ community }) => {
+  const { communities } = community.communities;
   const { showScreen } = community;
 
   return {
-    communities: allCommunities,
-    showScreen,
-    userInfo
+    communities,
+    showScreen
   };
 };
 
