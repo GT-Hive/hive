@@ -12,3 +12,5 @@ emulator -list-avds
 emulator @{emulator_name}
 npm run android
 ```
+
+For iOS, follow [link](https://facebook.github.io/react-native/docs/running-on-simulator-ios)
