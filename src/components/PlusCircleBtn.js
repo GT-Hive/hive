@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 
 import { actionCreators } from '../models/actions/community';
 import { COLORS } from '../res';
+import Button from './Button';
 
 const styles = StyleSheet.create({
   buttonContainer: {
@@ -70,9 +71,9 @@ class PlusCircleBtn extends React.Component {
       actions.map((action) => {
         return (
           <View key={action.text} style={styles.optionOuterContainer}>
-            <TouchableOpacity style={styles.optionContainer}>
+            <Button style={styles.optionContainer} onPress={action.onPress}>
               <Text style={styles.option}>{action.text}</Text>
-            </TouchableOpacity>
+            </Button>
           </View>
         );
       })

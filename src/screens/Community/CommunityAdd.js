@@ -6,14 +6,14 @@ import {
   Image,
   FlatList,
 } from 'react-native';
+import SvgUri from 'react-native-svg-uri';
 import { SafeAreaView } from 'react-navigation';
 import { connect } from 'react-redux';
 
 import SAFE_AREA_VIEW from '../../Constants';
 import Button from '../../components/Button';
-import PlusCircleBtn from '../../components/PlusCircleBtn';
 import { actionCreators } from '../../models/actions/community';
-import { COLORS, STYLES } from '../../res';
+import { COLORS, STYLES, images } from '../../res';
 
 const styles = StyleSheet.create({
   border: {
@@ -21,10 +21,15 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: COLORS.LIGHT_GRAY,
   },
+  community: {
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
   heading: STYLES.TEXT_SECONDARY,
   listBtn: {
     alignItems: 'center',
     flexDirection: 'row',
+    justifyContent: 'space-between',
     paddingVertical: 35,
     paddingHorizontal: 25,
     height: 100,
@@ -56,20 +61,9 @@ const styles = StyleSheet.create({
   },
 });
 
-class CommunitiesList extends React.Component {
-  componentDidMount() {
-    this.props.reloadCommunities();
-  }
-
+class CommunityAdd extends React.Component {
   _renderCommunities = () => {
-    const { communities, showScreen } = this.props;
-    if (!showScreen) {
-      return (
-        <View style={STYLES.OUTER_CONTAINER}>
-          <View style={STYLES.HEADER_CONTAINER} />
-        </View>
-      );
-    }
+    const { communities } = this.props;
     return (
       <View style={STYLES.OUTER_CONTAINER}>
         <View style={STYLES.HEADER_CONTAINER}>
@@ -77,7 +71,7 @@ class CommunitiesList extends React.Component {
             style={styles.profileImg}
             source={{ uri: 'https://facebook.github.io/react-native/docs/assets/favicon.png' }}
           />
-          <Text style={styles.heading}>Communities</Text>
+          <Text style={STYLES.heading}>Join Communities</Text>
         </View>
         <View style={styles.shadowBorder} />
         <View style={styles.listContainer}>
@@ -90,11 +84,14 @@ class CommunitiesList extends React.Component {
                   <Button
                     style={styles.listBtn}
                   >
-                    <Image
-                      style={styles.listImg}
-                      source={{ uri: item.img_url }}
-                    />
-                    <Text style={styles.listText}>{item.name}</Text>
+                    <View style={styles.community}>
+                      <Image
+                        style={styles.listImg}
+                        source={{ uri: item.img_url }}
+                      />
+                      <Text style={styles.listText}>{item.name}</Text>
+                    </View>
+                    <SvgUri source={images.plus} />
                   </Button>
                   <View style={styles.border} />
                 </View>
@@ -107,20 +104,9 @@ class CommunitiesList extends React.Component {
   }
 
   render() {
-    const { navigation } = this.props;
-
-    const actions = [{
-      text: 'Join a New Community',
-      onPress: () => navigation.navigate('CommunityAdd')
-    }, {
-      text: 'Create a New Community',
-      onPress: () => navigation.navigate('CommunityCreate')
-    }];
-
     return (
       <SafeAreaView style={SAFE_AREA_VIEW}>
         {this._renderCommunities()}
-        <PlusCircleBtn actions={actions} />
       </SafeAreaView>
     );
   }
@@ -128,11 +114,9 @@ class CommunitiesList extends React.Component {
 
 const mapStateToProps = ({ community }) => {
   const { communities } = community.communities;
-  const { showScreen } = community;
 
   return {
-    communities,
-    showScreen
+    communities
   };
 };
 
@@ -140,4 +124,4 @@ const mapDispatchToProps = {
   reloadCommunities: actionCreators.reloadCommunities
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CommunitiesList);
+export default connect(mapStateToProps, mapDispatchToProps)(CommunityAdd);

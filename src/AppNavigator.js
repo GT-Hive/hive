@@ -12,6 +12,7 @@ import IntroductionRequest from './screens/Registration/IntroductionRequest';
 import NameRequest from './screens/Registration/NameRequest';
 import UserInformationRequest from './screens/Registration/UserInformationRequest';
 import CommunitiesList from './screens/Community/CommunitiesList';
+import CommunityAdd from './screens/Community/CommunityAdd';
 
 const AuthStack = createStackNavigator({
   Login: {
@@ -43,6 +44,9 @@ const AuthStack = createStackNavigator({
 const CommunityStack = createStackNavigator({
   CommunitiesList: {
     screen: CommunitiesList
+  },
+  CommunityAdd: {
+    screen: CommunityAdd
   }
 }, {
   initialRouteName: 'CommunitiesList',
