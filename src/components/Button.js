@@ -17,7 +17,9 @@ export default class Button extends React.Component {
   };
 
   static defaultProps = {
-    style: null,
+    style: {
+      backgroundColor: 'transparent'
+    },
     onPress: null,
     disabled: false
   }

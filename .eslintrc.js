@@ -15,10 +15,11 @@ module.exports = {
     'object-curly-newline': 'off',
     'react/jsx-filename-extension': 'off',
     'react/destructuring-assignment': 'off',
+    'react/no-access-state-in-setstate': 'off',
     'react/no-multi-comp': 'off',
     'react/no-unescaped-entities': 'off',
     'react/prefer-stateless-function': 'off',
-    'react/prop-types': 'off'
+    'react/prop-types': 'off',
   },
   'globals': {
     'fetch': 'true'

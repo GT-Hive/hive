@@ -12,7 +12,6 @@ import { connect } from 'react-redux';
 
 import SAFE_AREA_VIEW from '../../Constants';
 import Button from '../../components/Button';
-import { actionCreators } from '../../models/actions/community';
 import { COLORS, STYLES, images } from '../../res';
 
 const styles = StyleSheet.create({
@@ -26,6 +25,13 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   heading: STYLES.TEXT_SECONDARY,
+  headerContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginHorizontal: 30,
+    marginVertical: 10
+  },
   listBtn: {
     alignItems: 'center',
     flexDirection: 'row',
@@ -62,41 +68,65 @@ const styles = StyleSheet.create({
 });
 
 class CommunityAdd extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      additionalCommunities: []
+    };
+  }
+
+  _renderCommunityButton = (item) => {
+    const isAdded = this.state.additionalCommunities.includes(item.id);
+    if (isAdded) return null;
+    return (
+      <View>
+        <Button
+          style={styles.listBtn}
+          onPress={() => {
+            const userCommunities = this.state.additionalCommunities;
+            userCommunities.push(item.id);
+            this.setState({ additionalCommunities: userCommunities });
+          }}
+        >
+          <View style={styles.community}>
+            <Image
+              style={styles.listImg}
+              source={{ uri: item.img_url }}
+            />
+            <Text style={styles.listText}>{item.name}</Text>
+          </View>
+          <SvgUri source={images.plus} />
+        </Button>
+        <View style={styles.border} />
+      </View>
+    );
+  }
+
   _renderCommunities = () => {
     const { communities } = this.props;
     return (
       <View style={STYLES.OUTER_CONTAINER}>
-        <View style={STYLES.HEADER_CONTAINER}>
-          <Image
-            style={styles.profileImg}
-            source={{ uri: 'https://facebook.github.io/react-native/docs/assets/favicon.png' }}
-          />
-          <Text style={STYLES.heading}>Join Communities</Text>
+        <View style={styles.headerContainer}>
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <Image
+              style={styles.profileImg}
+              source={images.logo}
+            />
+            <Text style={STYLES.heading}>Join Communities</Text>
+          </View>
+          <Button
+            onPress={() => this.props.navigation.navigate('CommunitiesList')}
+          >
+            <SvgUri source={images.check} fill={COLORS.BLACK} />
+          </Button>
         </View>
         <View style={styles.shadowBorder} />
         <View style={styles.listContainer}>
           <FlatList
             data={communities}
+            extraData={this.state}
             keyExtractor={item => item.id.toString()}
-            renderItem={({ item }) => {
-              return (
-                <View>
-                  <Button
-                    style={styles.listBtn}
-                  >
-                    <View style={styles.community}>
-                      <Image
-                        style={styles.listImg}
-                        source={{ uri: item.img_url }}
-                      />
-                      <Text style={styles.listText}>{item.name}</Text>
-                    </View>
-                    <SvgUri source={images.plus} />
-                  </Button>
-                  <View style={styles.border} />
-                </View>
-              );
-            }}
+            renderItem={({ item }) => this._renderCommunityButton(item)}
           />
         </View>
       </View>
@@ -120,8 +150,4 @@ const mapStateToProps = ({ community }) => {
   };
 };
 
-const mapDispatchToProps = {
-  reloadCommunities: actionCreators.reloadCommunities
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(CommunityAdd);
+export default connect(mapStateToProps, null)(CommunityAdd);

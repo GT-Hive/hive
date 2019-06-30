@@ -1,9 +1,9 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { connect } from 'react-redux';
+import { SafeAreaView } from 'react-navigation';
 
-import { actionCreators } from '../models/actions/community';
+import SAFE_AREA_VIEW from '../Constants';
 import { COLORS } from '../res';
 import Button from './Button';
 
@@ -15,6 +15,12 @@ const styles = StyleSheet.create({
     right: 20,
     bottom: 35
   },
+  expandedOuterContainer: {
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+    backgroundColor: COLORS.WHITE
+  },
   floatingBtn: {
     borderWidth: 1,
     borderColor: 'rgba(0,0,0,0.2)',
@@ -24,10 +30,20 @@ const styles = StyleSheet.create({
     height: 70,
     backgroundColor: COLORS.NEAR_BLACK,
     borderRadius: 100,
-    shadowRadius: 5,
-    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 10,
+    shadowOffset: { width: 0, height: 5 },
     shadowColor: COLORS.DIM_GRAY,
-    shadowOpacity: 1.0,
+    shadowOpacity: 1.0
+  },
+  floatingBtnWithoutShadow: {
+    borderWidth: 1,
+    borderColor: 'rgba(0,0,0,0.2)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 70,
+    height: 70,
+    backgroundColor: COLORS.NEAR_BLACK,
+    borderRadius: 100,
   },
   option: {
     fontWeight: 'bold'
@@ -50,7 +66,7 @@ const styles = StyleSheet.create({
   }
 });
 
-class PlusCircleBtn extends React.Component {
+export default class PlusCircleBtn extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -59,7 +75,6 @@ class PlusCircleBtn extends React.Component {
   }
 
   _onPress = () => {
-    this.props.toggleShowScreen();
     this.setState(prevState => ({
       isExpanded: !prevState.isExpanded
     }));
@@ -85,15 +100,19 @@ class PlusCircleBtn extends React.Component {
 
     if (this.state.isExpanded) {
       return (
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity
-            onPress={() => this._onPress()}
-            style={styles.floatingBtn}
-          >
-            <Icon name="md-add" size={30} color={COLORS.WHITE} />
-          </TouchableOpacity>
-          {this._renderContents(actions)}
-        </View>
+        <SafeAreaView style={SAFE_AREA_VIEW}>
+          <View style={styles.expandedOuterContainer}>
+            <View style={styles.buttonContainer}>
+              <TouchableOpacity
+                onPress={() => this._onPress()}
+                style={styles.floatingBtnWithoutShadow}
+              >
+                <Icon name="md-add" size={30} color={COLORS.WHITE} />
+              </TouchableOpacity>
+              {this._renderContents(actions)}
+            </View>
+          </View>
+        </SafeAreaView>
       );
     }
     return (
@@ -108,9 +127,3 @@ class PlusCircleBtn extends React.Component {
     );
   }
 }
-
-const mapDispatchToProps = {
-  toggleShowScreen: actionCreators.toggleShowScreen
-};
-
-export default connect(null, mapDispatchToProps)(PlusCircleBtn);

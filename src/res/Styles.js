@@ -37,9 +37,6 @@ const STYLES = {
     color: COLORS.BLACK,
   },
   PROFILE_IMG: {
-    borderWidth: 3,
-    borderRadius: 50,
-    borderColor: COLORS.LIGHT_GRAY,
     height: 60,
     width: 60,
   },

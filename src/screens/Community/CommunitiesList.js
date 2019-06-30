@@ -13,7 +13,7 @@ import SAFE_AREA_VIEW from '../../Constants';
 import Button from '../../components/Button';
 import PlusCircleBtn from '../../components/PlusCircleBtn';
 import { actionCreators } from '../../models/actions/community';
-import { COLORS, STYLES } from '../../res';
+import { COLORS, STYLES, images } from '../../res';
 
 const styles = StyleSheet.create({
   border: {
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
   },
   listContainer: {
     marginHorizontal: 30,
-    marginBottom: 20,
+    flex: 1
   },
   listImg: {
     marginRight: 25,
@@ -57,25 +57,28 @@ const styles = StyleSheet.create({
 });
 
 class CommunitiesList extends React.Component {
-  componentDidMount() {
+  constructor(props) {
+    super(props);
     this.props.reloadCommunities();
   }
 
-  _renderCommunities = () => {
-    const { communities, showScreen } = this.props;
-    if (!showScreen) {
-      return (
-        <View style={STYLES.OUTER_CONTAINER}>
-          <View style={STYLES.HEADER_CONTAINER} />
-        </View>
-      );
-    }
+  render() {
+    const { communities, navigation } = this.props;
+
+    const actions = [{
+      text: 'Join a New Community',
+      onPress: () => navigation.navigate('CommunityAdd')
+    }, {
+      text: 'Create a New Community',
+      onPress: () => navigation.navigate('CommunityCreate')
+    }];
+
     return (
-      <View style={STYLES.OUTER_CONTAINER}>
+      <SafeAreaView style={SAFE_AREA_VIEW}>
         <View style={STYLES.HEADER_CONTAINER}>
           <Image
             style={styles.profileImg}
-            source={{ uri: 'https://facebook.github.io/react-native/docs/assets/favicon.png' }}
+            source={images.logo}
           />
           <Text style={styles.heading}>Communities</Text>
         </View>
@@ -102,24 +105,6 @@ class CommunitiesList extends React.Component {
             }}
           />
         </View>
-      </View>
-    );
-  }
-
-  render() {
-    const { navigation } = this.props;
-
-    const actions = [{
-      text: 'Join a New Community',
-      onPress: () => navigation.navigate('CommunityAdd')
-    }, {
-      text: 'Create a New Community',
-      onPress: () => navigation.navigate('CommunityCreate')
-    }];
-
-    return (
-      <SafeAreaView style={SAFE_AREA_VIEW}>
-        {this._renderCommunities()}
         <PlusCircleBtn actions={actions} />
       </SafeAreaView>
     );

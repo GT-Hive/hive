@@ -7,8 +7,7 @@ const PROGRESS = {
 
 const initialState = {
   communities: [],
-  reloadCommunities: PROGRESS.IDLE,
-  showScreen: true
+  reloadCommunities: PROGRESS.IDLE
 };
 
 export default (state = initialState, action) => {
@@ -27,11 +26,6 @@ export default (state = initialState, action) => {
     case actionTypes.RELOAD_COMMUNITIES_FAILED:
       console.warn(action.error);
       return state;
-    case actionTypes.TOGGLE_SHOW_SCREEN:
-      return {
-        ...state,
-        showScreen: !state.showScreen
-      };
     default:
       return state;
   }
