@@ -1,7 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { NavigationActions, StackActions } from 'react-navigation';
+import { NavigationActions, SafeAreaView, StackActions } from 'react-navigation';
 
+import SAFE_AREA_VIEW from '../Constants';
 import Button from '../components/Button';
 import { COLORS, STYLES } from '../res';
 
@@ -43,18 +44,20 @@ export default class ForgotConfirm extends React.Component {
     });
 
     return (
-      <View style={styles.outerContainer}>
-        <View style={styles.introContainer}>
-          <Text style={styles.heading}>Email Sent!</Text>
-          <Text style={STYLES.TEXT_TERTIARY}>We sent you a recovery email!</Text>
+      <SafeAreaView style={SAFE_AREA_VIEW}>
+        <View style={styles.outerContainer}>
+          <View style={styles.introContainer}>
+            <Text style={styles.heading}>Email Sent!</Text>
+            <Text style={STYLES.TEXT_TERTIARY}>We sent you a recovery email!</Text>
+          </View>
+          <Button
+            style={styles.completeBtn}
+            onPress={() => this.props.navigation.dispatch(resetStack)}
+          >
+            <Text style={styles.complete}>Return to Login</Text>
+          </Button>
         </View>
-        <Button
-          style={styles.completeBtn}
-          onPress={() => this.props.navigation.dispatch(resetStack)}
-        >
-          <Text style={styles.complete}>Return to Login</Text>
-        </Button>
-      </View>
+      </SafeAreaView>
     );
   }
 }

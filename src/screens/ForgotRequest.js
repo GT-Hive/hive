@@ -1,6 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
+import { SafeAreaView } from 'react-navigation';
 
+import SAFE_AREA_VIEW from '../Constants';
 import Button from '../components/Button';
 import { COLORS, STYLES } from '../res';
 
@@ -61,26 +63,28 @@ const styles = StyleSheet.create({
 export default class ForgotRequest extends React.Component {
   render() {
     return (
-      <View style={styles.outerContainer}>
-        <View style={styles.introContainer}>
-          <Text style={styles.heading}>Forgot your password?</Text>
-          <Text style={STYLES.TEXT_TERTIARY}>No problem! Let us help you! Please put your email here</Text>
+      <SafeAreaView style={SAFE_AREA_VIEW}>
+        <View style={styles.outerContainer}>
+          <View style={styles.introContainer}>
+            <Text style={styles.heading}>Forgot your password?</Text>
+            <Text style={STYLES.TEXT_TERTIARY}>No problem! Let us help you! Please put your email here</Text>
+          </View>
+          <View style={styles.regNameContainer}>
+            <TextInput
+              style={styles.firstName}
+              placeholder='Email'
+              placeholderTextColor={COLORS.LIGHT_GRAY}
+              autoFocus
+            />
+          </View>
+          <Button
+            style={styles.continueBtn}
+            onPress={() => this.props.navigation.navigate('ForgotConfirm')}
+          >
+            <Text style={styles.continue}>Continue</Text>
+          </Button>
         </View>
-        <View style={styles.regNameContainer}>
-          <TextInput
-            style={styles.firstName}
-            placeholder='Email'
-            placeholderTextColor={COLORS.LIGHT_GRAY}
-            autoFocus
-          />
-        </View>
-        <Button
-          style={styles.continueBtn}
-          onPress={() => this.props.navigation.navigate('ForgotConfirm')}
-        >
-          <Text style={styles.continue}>Continue</Text>
-        </Button>
-      </View>
+      </SafeAreaView>
     );
   }
 }

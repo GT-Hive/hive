@@ -1,7 +1,9 @@
 import React from 'react';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
+import { SafeAreaView } from 'react-navigation';
 import { connect } from 'react-redux';
 
+import SAFE_AREA_VIEW from '../../Constants';
 import Button from '../../components/Button';
 import { actionCreators } from '../../models/actions/user';
 import { COLORS, STYLES } from '../../res';
@@ -76,35 +78,37 @@ class IntroductionRequest extends React.Component {
     const { navigation, registerIntroduction } = this.props;
 
     return (
-      <View style={styles.outerContainer}>
-        <View style={styles.introContainer}>
-          <Text style={styles.heading}>Introduce Yourself!</Text>
-          <Text style={STYLES.TEXT_TERTIARY}>
-            Set a nice profile picture and describe yourself in a few words.
-          </Text>
-          <View style={styles.profileContainer}>
-            <View style={styles.profile} />
+      <SafeAreaView style={SAFE_AREA_VIEW}>
+        <View style={styles.outerContainer}>
+          <View style={styles.introContainer}>
+            <Text style={styles.heading}>Introduce Yourself!</Text>
+            <Text style={STYLES.TEXT_TERTIARY}>
+              Set a nice profile picture and describe yourself in a few words.
+            </Text>
+            <View style={styles.profileContainer}>
+              <View style={styles.profile} />
+            </View>
           </View>
+          <View style={styles.regIntroContainer}>
+            <TextInput
+              style={styles.introduction}
+              placeholder='Introduce yourself here!'
+              placeholderTextColor={COLORS.LIGHT_GRAY}
+              onChangeText={intro => this.setState({ intro })}
+              multiline
+            />
+          </View>
+          <Button
+            style={styles.continueBtn}
+            onPress={() => {
+              registerIntroduction(this.state.intro);
+              navigation.navigate('CommunitiesRegister');
+            }}
+          >
+            <Text style={styles.continue}>Continue</Text>
+          </Button>
         </View>
-        <View style={styles.regIntroContainer}>
-          <TextInput
-            style={styles.introduction}
-            placeholder='Introduce yourself here!'
-            placeholderTextColor={COLORS.LIGHT_GRAY}
-            onChangeText={intro => this.setState({ intro })}
-            multiline
-          />
-        </View>
-        <Button
-          style={styles.continueBtn}
-          onPress={() => {
-            registerIntroduction(this.state.intro);
-            navigation.navigate('CommunitiesRegister');
-          }}
-        >
-          <Text style={styles.continue}>Continue</Text>
-        </Button>
-      </View>
+      </SafeAreaView>
     );
   }
 }

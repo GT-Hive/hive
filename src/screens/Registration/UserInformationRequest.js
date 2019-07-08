@@ -1,7 +1,9 @@
 import React from 'react';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
+import { SafeAreaView } from 'react-navigation';
 import { connect } from 'react-redux';
 
+import SAFE_AREA_VIEW from '../../Constants';
 import hasFieldsFilled from '../../common/Validation';
 import Button from '../../components/Button';
 import Toast from '../../components/Toast';
@@ -131,53 +133,55 @@ class UserInformationRequest extends React.Component {
   render() {
     const { description } = this.state;
     return (
-      <View style={styles.outerContainer}>
-        <View style={styles.introContainer}>
-          <Text style={styles.heading}>Tell us about you</Text>
-          <Text style={styles.login}>
-            { description.login }
-          </Text>
-          <Text style={this._renderPasswordText()}>
-            { description.password }
-          </Text>
+      <SafeAreaView style={SAFE_AREA_VIEW}>
+        <View style={styles.outerContainer}>
+          <View style={styles.introContainer}>
+            <Text style={styles.heading}>Tell us about you</Text>
+            <Text style={styles.login}>
+              { description.login }
+            </Text>
+            <Text style={this._renderPasswordText()}>
+              { description.password }
+            </Text>
+          </View>
+          <View style={styles.emailContainer}>
+            <TextInput
+              style={styles.textInput}
+              onChangeText={email => this.setState({ email })}
+              placeholder='Georgia Tech Email'
+              placeholderTextColor={COLORS.LIGHT_GRAY}
+              autoFocus
+            />
+          </View>
+          <View style={styles.passwordContainer}>
+            <TextInput
+              style={styles.textInput}
+              onChangeText={password => this.setState({ password })}
+              placeholder='Password'
+              placeholderTextColor={COLORS.LIGHT_GRAY}
+              secureTextEntry
+            />
+            <TextInput
+              style={styles.confirmPassword}
+              onChangeText={confirmPassword => this.setState({ confirmPassword })}
+              placeholder='Confirm Password'
+              placeholderTextColor={COLORS.LIGHT_GRAY}
+              secureTextEntry
+            />
+          </View>
+          <Button
+            disabled={
+              !hasFieldsFilled([this.state.email, this.state.password])
+              || !this._isStrongPassword()
+            }
+            style={styles.continueBtn}
+            onPress={this._validateFieldsAndContinue}
+          >
+            <Text style={styles.continue}>Continue</Text>
+          </Button>
+          <Toast />
         </View>
-        <View style={styles.emailContainer}>
-          <TextInput
-            style={styles.textInput}
-            onChangeText={email => this.setState({ email })}
-            placeholder='Georgia Tech Email'
-            placeholderTextColor={COLORS.LIGHT_GRAY}
-            autoFocus
-          />
-        </View>
-        <View style={styles.passwordContainer}>
-          <TextInput
-            style={styles.textInput}
-            onChangeText={password => this.setState({ password })}
-            placeholder='Password'
-            placeholderTextColor={COLORS.LIGHT_GRAY}
-            secureTextEntry
-          />
-          <TextInput
-            style={styles.confirmPassword}
-            onChangeText={confirmPassword => this.setState({ confirmPassword })}
-            placeholder='Confirm Password'
-            placeholderTextColor={COLORS.LIGHT_GRAY}
-            secureTextEntry
-          />
-        </View>
-        <Button
-          disabled={
-            !hasFieldsFilled([this.state.email, this.state.password])
-            || !this._isStrongPassword()
-          }
-          style={styles.continueBtn}
-          onPress={this._validateFieldsAndContinue}
-        >
-          <Text style={styles.continue}>Continue</Text>
-        </Button>
-        <Toast />
-      </View>
+      </SafeAreaView>
     );
   }
 }

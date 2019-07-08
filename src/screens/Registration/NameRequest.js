@@ -1,7 +1,9 @@
 import React from 'react';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
+import { SafeAreaView } from 'react-navigation';
 import { connect } from 'react-redux';
 
+import SAFE_AREA_VIEW from '../../Constants';
 import hasFieldsFilled from '../../common/Validation';
 import Button from '../../components/Button';
 import { actionCreators } from '../../models/actions/user';
@@ -76,37 +78,39 @@ class NameRequest extends React.Component {
     const { registerName, navigation } = this.props;
 
     return (
-      <View style={styles.outerContainer}>
-        <View style={styles.introContainer}>
-          <Text style={styles.heading}>What's your name?</Text>
-          <Text style={STYLES.TEXT_TERTIARY}>Let us get to know you!</Text>
+      <SafeAreaView style={SAFE_AREA_VIEW}>
+        <View style={styles.outerContainer}>
+          <View style={styles.introContainer}>
+            <Text style={styles.heading}>What's your name?</Text>
+            <Text style={STYLES.TEXT_TERTIARY}>Let us get to know you!</Text>
+          </View>
+          <View style={styles.regNameContainer}>
+            <TextInput
+              style={styles.firstName}
+              onChangeText={name => this.setState({ firstName: name })}
+              placeholder='First Name'
+              placeholderTextColor={COLORS.LIGHT_GRAY}
+              autoFocus
+            />
+            <TextInput
+              style={styles.lastName}
+              onChangeText={name => this.setState({ lastName: name })}
+              placeholder='Last Name'
+              placeholderTextColor={COLORS.LIGHT_GRAY}
+            />
+          </View>
+          <Button
+            disabled={!hasFieldsFilled([firstName, lastName])}
+            style={styles.continueBtn}
+            onPress={() => {
+              registerName(firstName, lastName);
+              navigation.navigate('UserInformation');
+            }}
+          >
+            <Text style={styles.continue}>Continue</Text>
+          </Button>
         </View>
-        <View style={styles.regNameContainer}>
-          <TextInput
-            style={styles.firstName}
-            onChangeText={name => this.setState({ firstName: name })}
-            placeholder='First Name'
-            placeholderTextColor={COLORS.LIGHT_GRAY}
-            autoFocus
-          />
-          <TextInput
-            style={styles.lastName}
-            onChangeText={name => this.setState({ lastName: name })}
-            placeholder='Last Name'
-            placeholderTextColor={COLORS.LIGHT_GRAY}
-          />
-        </View>
-        <Button
-          disabled={!hasFieldsFilled([firstName, lastName])}
-          style={styles.continueBtn}
-          onPress={() => {
-            registerName(firstName, lastName);
-            navigation.navigate('UserInformation');
-          }}
-        >
-          <Text style={styles.continue}>Continue</Text>
-        </Button>
-      </View>
+      </SafeAreaView>
     );
   }
 }

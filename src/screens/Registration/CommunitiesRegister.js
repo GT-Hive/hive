@@ -1,8 +1,10 @@
 import _ from 'lodash';
 import React from 'react';
 import { ScrollView, Text, TouchableOpacity, View, StyleSheet } from 'react-native';
+import { SafeAreaView } from 'react-navigation';
 import { connect } from 'react-redux';
 
+import SAFE_AREA_VIEW from '../../Constants';
 import Button from '../../components/Button';
 import { actionCreators as communityActionCreators } from '../../models/actions/community';
 import { actionCreators as userActionCreators } from '../../models/actions/user';
@@ -141,27 +143,29 @@ class CommunitiesRegister extends React.Component {
   render() {
     const { communities, createUser, userInfo } = this.props;
     return (
-      <ScrollView>
-        <View style={styles.outerContainer}>
-          <View style={styles.introContainer}>
-            <Text style={styles.heading}>Select Your Communities</Text>
-            <Text style={STYLES.TEXT_TERTIARY}>
-              {this.state.description}
-            </Text>
+      <SafeAreaView style={SAFE_AREA_VIEW}>
+        <ScrollView>
+          <View style={styles.outerContainer}>
+            <View style={styles.introContainer}>
+              <Text style={styles.heading}>Select Your Communities</Text>
+              <Text style={STYLES.TEXT_TERTIARY}>
+                {this.state.description}
+              </Text>
+            </View>
+            <View style={styles.tagBtnContainer}>
+              {communities ? this._makeButtons() : null}
+            </View>
+            <View style={styles.registerBtnContainer}>
+              <Button
+                style={styles.registerBtn}
+                onPress={() => createUser(userInfo, this.state.selected)}
+              >
+                <Text style={styles.register}>Register</Text>
+              </Button>
+            </View>
           </View>
-          <View style={styles.tagBtnContainer}>
-            {communities ? this._makeButtons() : null}
-          </View>
-          <View style={styles.registerBtnContainer}>
-            <Button
-              style={styles.registerBtn}
-              onPress={() => createUser(userInfo, this.state.selected)}
-            >
-              <Text style={styles.register}>Register</Text>
-            </Button>
-          </View>
-        </View>
-      </ScrollView>
+        </ScrollView>
+      </SafeAreaView>
     );
   }
 }
