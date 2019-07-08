@@ -12,6 +12,7 @@ import { connect } from 'react-redux';
 
 import SAFE_AREA_VIEW from '../../Constants';
 import Button from '../../components/Button';
+import { actionCreators } from '../../models/actions/community'
 import { COLORS, STYLES, images } from '../../res';
 
 const styles = StyleSheet.create({
@@ -32,6 +33,10 @@ const styles = StyleSheet.create({
     marginHorizontal: 30,
     marginVertical: 10
   },
+  headerInnerContainer: {
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
   listBtn: {
     alignItems: 'center',
     flexDirection: 'row',
@@ -42,7 +47,7 @@ const styles = StyleSheet.create({
   },
   listContainer: {
     marginHorizontal: 30,
-    marginBottom: 20,
+    flex: 1
   },
   listImg: {
     marginRight: 25,
@@ -107,7 +112,7 @@ class CommunityAdd extends React.Component {
     return (
       <View style={STYLES.OUTER_CONTAINER}>
         <View style={styles.headerContainer}>
-          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <View style={styles.headerInnerContainer}>
             <Image
               style={styles.profileImg}
               source={images.logo}
@@ -115,7 +120,10 @@ class CommunityAdd extends React.Component {
             <Text style={STYLES.heading}>Join Communities</Text>
           </View>
           <Button
-            onPress={() => this.props.navigation.navigate('CommunitiesList')}
+            onPress={() => {
+              this.props.addUserToCommunities(this.state.additionalCommunities);
+              this.props.navigation.navigate('CommunitiesList');
+            }}
           >
             <SvgUri source={images.check} fill={COLORS.BLACK} />
           </Button>
@@ -150,4 +158,8 @@ const mapStateToProps = ({ community }) => {
   };
 };
 
-export default connect(mapStateToProps, null)(CommunityAdd);
+const mapDispatchToProps = {
+  addUserToCommunities: actionCreators.addUserToCommunities
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CommunityAdd);

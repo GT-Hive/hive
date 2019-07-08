@@ -10,7 +10,6 @@ const interceptor = store => next => (action) => {
     || !(token && tokenExpireTime)
     || new Date(Date.now() < new Date(tokenExpireTime))
   ) return next(action);
-
   store.dispatch(actionCreators.refreshToken(email, password));
   client
     .post('/auth/login', { user: { email, password } })

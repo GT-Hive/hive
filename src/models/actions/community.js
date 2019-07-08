@@ -1,11 +1,13 @@
-const RELOAD_COMMUNITIES = 'hive/screen/RELOAD_COMMUNITIES';
-const RELOAD_COMMUNITIES_SUCCEED = 'hive/screen/RELOAD_COMMUNITIES_SUCCEED';
-const RELOAD_COMMUNITIES_FAILED = 'hive/screen/RELOAD_COMMUNITIES_FAILED';
+const RELOAD_COMMUNITIES = 'hive/community/RELOAD_COMMUNITIES';
+const RELOAD_COMMUNITIES_SUCCEED = 'hive/community/RELOAD_COMMUNITIES_SUCCEED';
+const RELOAD_COMMUNITIES_FAILED = 'hive/community/RELOAD_COMMUNITIES_FAILED';
+const ADD_USER_TO_COMMUNITIES = 'hive/community/ADD_USER_TO_COMMUNITIES';
 
 export const actionTypes = {
   RELOAD_COMMUNITIES,
   RELOAD_COMMUNITIES_SUCCEED,
-  RELOAD_COMMUNITIES_FAILED
+  RELOAD_COMMUNITIES_FAILED,
+  ADD_USER_TO_COMMUNITIES
 };
 
 const reloadCommunities = () => ({
@@ -22,8 +24,14 @@ const reloadCommunitiesFailed = error => ({
   error
 });
 
+const addUserToCommunities = communities => ({
+  type: ADD_USER_TO_COMMUNITIES,
+  communities
+});
+
 export const actionCreators = {
   reloadCommunities,
   reloadCommunitiesSucceed,
   reloadCommunitiesFailed,
+  addUserToCommunities
 };

@@ -2,7 +2,7 @@ import { applyMiddleware, createStore } from 'redux';
 import { createEpicMiddleware } from 'redux-observable';
 
 import apiMiddleWare from '../common/AxiosUtils';
-import { navMiddleware } from '../common/ReduxUtils';
+// import { navMiddleware } from '../common/ReduxUtils';
 import rootEpic from './epics';
 import rootReducer from './reducers';
 
@@ -13,7 +13,7 @@ export default () => {
     rootReducer,
     applyMiddleware(
       epicMiddleware,
-      navMiddleware,
+      // navMiddleware,
       apiMiddleWare
     )
   );

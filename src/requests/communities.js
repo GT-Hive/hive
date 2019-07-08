@@ -20,5 +20,12 @@ export default {
       }, TIMEOUT);
       return () => clearTimeout(timerId);
     });
-  }
+  },
+  // addUserToCommunities(communities) {
+  //   return new Observable((observer) => {
+  //     const timerId = setTimeout(() => {
+  //       client.post()
+  //     }
+  //   })
+  // }
 };

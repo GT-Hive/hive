@@ -12,7 +12,7 @@ import user from './user';
 const persistConfig = {
   storage,
   key: 'root',
-  whitelist: ['session'],
+  blacklist: ['session', 'nav'],
   stateReconciler: autoMergeLevel2,
   transforms: [encrypt],
 

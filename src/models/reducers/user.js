@@ -38,6 +38,7 @@ export default (state = initialState, action) => {
       console.warn(action.error.response.data);
       return state;
     case actionTypes.CREATE_USER_SUCCEED:
+      console.log('create_user_succeed', action);
     default:
       return state;
   }

@@ -88,6 +88,7 @@ class AppWithNavigationState extends React.Component {
   render() {
     const { dispatch, nav } = this.props;
     const AppContainer = createReduxContainer(AppNavigator);
+    console.log('nav', nav);
     return (
       <AppContainer
         state={nav}
