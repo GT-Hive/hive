@@ -1,3 +1,4 @@
+
 import { COLORS } from './res';
 
 const SAFE_AREA_VIEW = {
@@ -7,6 +8,15 @@ const SAFE_AREA_VIEW = {
   forceInset: {
     top: 'always',
     horizontal: 'never'
+  }
+};
+
+export const NAV_CONFIGS = {
+  navigationOptions: {
+    headerTintColor: COLORS.BLACK,
+    headerStyle: {
+      marginLeft: 20
+    }
   }
 };
 

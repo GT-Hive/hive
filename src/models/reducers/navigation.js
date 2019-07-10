@@ -4,9 +4,8 @@ import { AppNavigator } from '../../AppNavigator';
 import { actionTypes } from '../actions/navigation';
 
 const initialState = AppNavigator.router.getStateForAction(
-  // TODO(royhong): revert back to auth
-  // AppNavigator.router.getActionForPathAndParams('Auth')
-  AppNavigator.router.getActionForPathAndParams('Auth')
+  // TODO(royhong): revert back to auth -- test to avoid login **debug purpose**
+  AppNavigator.router.getActionForPathAndParams('Community')
 );
 
 export default (state = initialState, action) => {
